@@ -17,7 +17,7 @@ import BaseInput from '../base/BaseInput.vue'
 import BaseButton from '../base/BaseButton.vue'
 import { ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-import { login } from '@/api/login'
+import { login } from '@/api'
 import { checkEmail, checkPhone } from '@/utils/check'
 
 import { useCommunicationStore } from '@/stores'

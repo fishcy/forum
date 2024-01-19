@@ -87,7 +87,7 @@ import BaseInput from '../base/BaseInput.vue'
 import BaseButton from '../base/BaseButton.vue'
 import { ref, watchEffect } from 'vue'
 import { checkEmail, checkPhone, checkPassword, confirmPasswordAgain } from '@/utils/check'
-import { register } from '@/api/register'
+import { register } from '@/api'
 
 const email = ref('chuyuzhong1@gmail.com')
 const phone = ref('13006750587')

@@ -9,11 +9,9 @@ const instance: AxiosInstance = axios.create({
 // 请求拦截器
 instance.interceptors.request.use(
     (config) => {
-        console.log(config)
         return config
     },
     (error) => {
-        console.log(error)
         return Promise.reject(error)
     }
 )
@@ -22,18 +20,16 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     (response) => {
         if (response.data.message === '成功') {
-            const { setAuth, setAvatar, setUserName } = useUserInfoStore()
-            console.log(response.data)
-            console.log(response.headers.authorization)
+            const { setAuth, setAvatar, setUserName, setThemeColor } = useUserInfoStore()
             setAuth(response.headers.authorization)
-            const { avatar, userName } = response.data.data
+            const { avatar, userName, themeColor } = response.data.data
             setAvatar(avatar)
             setUserName(userName)
+            setThemeColor(themeColor)
         }
         return response
     },
     (error) => {
-        console.log(error)
         return Promise.reject(error)
     }
 )

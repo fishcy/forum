@@ -3,10 +3,10 @@
         <div class="nav-wrapper">
             <!-- 设置主题颜色 -->
             <div class="nav-setting">
-                <span :style="`color: ${color}; position: relative;`" class="skin">
+                <span :style="`color: ${themeColor}; position: relative;`" class="skin">
                     <font-awesome-icon :icon="['fas', 'shirt']" />
                     <ElColorPicker
-                        v-model="color"
+                        v-model="themeColor"
                         show-alpha
                         :predefine="predefineColors"
                         size="small"
@@ -37,13 +37,13 @@ import BaseButton from '../base/BaseButton.vue'
 import UserInfo from '../user/UserInfo.vue'
 import { useUserInfoStore, useCommunicationStore } from '@/stores'
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { postThemeColor } from '@/api/index'
 
 const { getAvatar, getUserName } = useUserInfoStore()
-const { isLogin } = storeToRefs(useUserInfoStore())
+const { isLogin, themeColor } = storeToRefs(useUserInfoStore())
 
 // 颜色选择器
-const color = ref('#333333')
 const predefineColors = ref([
     'rgb(0, 0, 0)',
     'rgb(38, 38, 38)',
@@ -54,6 +54,15 @@ const predefineColors = ref([
     'rgb(245, 245, 245)',
     'rgb(250, 250, 250)'
 ])
+
+// 监听主题颜色的变化，变化时更新后端数据
+watch(themeColor, (newThemeColor) => {
+    console.log(newThemeColor)
+    isLogin &&
+        postThemeColor({
+            themeColor: newThemeColor
+        })
+})
 
 // 登录 / 注册 弹窗是否可见
 const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
