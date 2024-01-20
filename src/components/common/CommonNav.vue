@@ -45,6 +45,7 @@ const { isLogin, themeColor } = storeToRefs(useUserInfoStore())
 
 // 颜色选择器
 const predefineColors = ref([
+    '#32ca99',
     'rgb(0, 0, 0)',
     'rgb(38, 38, 38)',
     'rgb(89, 89, 89)',
@@ -57,11 +58,11 @@ const predefineColors = ref([
 
 // 监听主题颜色的变化，变化时更新后端数据
 watch(themeColor, (newThemeColor) => {
-    console.log(newThemeColor)
     isLogin &&
         postThemeColor({
             themeColor: newThemeColor
         })
+    document.documentElement.style.setProperty('--theme-color', newThemeColor)
 })
 
 // 登录 / 注册 弹窗是否可见
@@ -109,7 +110,7 @@ const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
             justify-content: center;
             & .button {
                 width: px2rem(90);
-                height: 34px;
+                height: 36px;
                 margin: 0 10px;
             }
         }
@@ -123,7 +124,7 @@ const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
         .publish-button {
             .button {
                 width: 80px;
-                height: 34px;
+                height: 36px;
                 margin: 0 10px;
             }
         }

@@ -1,13 +1,15 @@
 <template>
-    <ElDialog v-model="loginOrRegisterVisible">
-        <div class="login-register-card">
-            <ul class="card-nav" @click="switchComponent">
-                <li class="item" :class="{ isActive: showComponent === UserLogin }">登录</li>
-                <li class="item" :class="{ isActive: showComponent === UserRegister }">注册</li>
-            </ul>
-            <component :is="showComponent"></component>
-        </div>
-    </ElDialog>
+    <div class="dialog-wrapper">
+        <ElDialog v-model="loginOrRegisterVisible" width="350px" class="base-dialog">
+            <div class="login-register-card">
+                <ul class="card-nav" @click="switchComponent">
+                    <li class="item" :class="{ isActive: showComponent === UserLogin }">登录</li>
+                    <li class="item" :class="{ isActive: showComponent === UserRegister }">注册</li>
+                </ul>
+                <component :is="showComponent"></component>
+            </div>
+        </ElDialog>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -36,35 +38,54 @@ const switchComponent = (event: MouseEvent) => {
 </script>
 
 <style lang="scss" scoped>
-.login-register-card {
-    .card-nav {
-        display: flex;
-        padding: 20px 5px;
-        .item {
-            cursor: pointer;
-            margin-right: 20px;
-            font-size: 18px;
-            font-weight: 500;
-            color: #999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+.dialog-wrapper {
+    .base-dialog {
+        .login-register-card {
+            width: 100%;
+            height: 350px;
+            .card-nav {
+                display: flex;
+                padding: 20px 5px;
+                .item {
+                    cursor: pointer;
+                    margin-right: 20px;
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: #999;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
 
-            &::after {
-                content: '';
-                border-radius: 2px;
-                height: 4px;
-                width: 100%;
+                    &::after {
+                        content: '';
+                        border-radius: 2px;
+                        height: 4px;
+                        width: 100%;
+                    }
+                }
+
+                .isActive {
+                    color: #333;
+
+                    &::after {
+                        background-color: var(--theme-color);
+                    }
+                }
             }
         }
+    }
+    &:deep(.el-dialog__headerbtn:hover .el-dialog__close) {
+        color: var(--theme-color);
+    }
 
-        .isActive {
-            color: #333;
+    &:deep(.el-dialog) {
+        border-radius: 12px;
+    }
 
-            &::after {
-                background-color: red;
-            }
-        }
+    &:deep(.el-dialog__body){
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 0;
     }
 }
 </style>

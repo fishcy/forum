@@ -26,9 +26,12 @@ export default defineConfig({
         preprocessorOptions: {
             scss: {
                 additionalData: `
-                    @import "@/assets/scss/global.scss";
-                    @import "@/assets/scss/responsive.scss";
-                    @import "highlight.js/scss/stackoverflow-light.scss";
+                    $phone-max-width: 768px;
+                    $pc-max-width: 1024px;
+                    // px转rem
+                    @function px2rem($px) {
+                        @return calc(#{$px} / 100 * 1rem);
+                    }
                     `
             }
         }

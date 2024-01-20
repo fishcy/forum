@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 const authKey = 'Authorization'
 export const useUserInfoStore = defineStore('authorization', {
-    state: () => ({ authorization: '', avatar: '', userName: '', themeColor: '#333' }),
+    state: () => ({ authorization: '', avatar: '', userName: '', themeColor: '#32ca99' }),
     actions: {
         setAuth(auth: string) {
             this.authorization = auth
@@ -32,7 +32,7 @@ export const useUserInfoStore = defineStore('authorization', {
             this.setAuth('')
             this.setAvatar('')
             this.setUserName('')
-            this.setThemeColor('#333')
+            this.setThemeColor('#32ca99')
         }
     },
     getters: {

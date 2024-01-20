@@ -1,5 +1,4 @@
 export * from './elementBoundary'
 export * from './elementCenterOffset'
 export * from './mouse'
-export * from './themeColor'
 export * from './elementShow'

@@ -22,9 +22,9 @@
     -webkit-border-radius: 15px;
 }
 
+// 主题颜色
 :root {
-    --theme-color: '';
-    --theme-highlight-color: '';
+    --theme-color: #32ca99;
 }
 
 input {
@@ -34,6 +34,11 @@ input {
 
 input:focus {
     outline: none;
+}
+
+// 覆盖自动填充时，背景色变为蓝色
+input:autofill {
+    box-shadow: inset 0 0 0 100px #fff;
 }
 
 button {
@@ -63,8 +68,4 @@ li {
 a {
     text-decoration: none;
     color: #333;
-}
-
-input:autofill {
-    box-shadow: inset 0 0 0 100px #fff;
 }

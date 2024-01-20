@@ -1,13 +1,18 @@
 <template>
-    <ElForm :model="loginData" ref="formRef" :rules="rules">
+    <ElForm :model="loginData" ref="formRef" :rules="rules" class="login-form">
         <ElFormItem prop="account">
-            <BaseInput v-model="loginData.account"></BaseInput>
+            <BaseInput v-model="loginData.account" placeholder="请输入手机号或邮箱"></BaseInput>
         </ElFormItem>
         <ElFormItem prop="password">
-            <BaseInput v-model="loginData.password" type="password"></BaseInput>
+            <BaseInput
+                v-model="loginData.password"
+                type="password"
+                show-password
+                placeholder="请输入密码"
+            ></BaseInput>
         </ElFormItem>
         <ElFormItem>
-            <BaseButton @click="submitForm(formRef)">登录</BaseButton>
+            <BaseButton @click="submitForm(formRef)" class="submit">登录</BaseButton>
         </ElFormItem>
     </ElForm>
 </template>
@@ -87,4 +92,11 @@ const submitForm = (formEl: FormInstance | undefined) => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.login-form {
+    margin-top: 50px;
+    .submit {
+        width: 100%;
+    }
+}
+</style>
