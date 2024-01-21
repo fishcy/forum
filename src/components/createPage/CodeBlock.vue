@@ -28,6 +28,7 @@ const props = defineProps(nodeViewProps)
 // 获取lowlight模块中的语言列表
 const languages = props.extension.options.lowlight.listLanguages()
 
+// 被选中的语言
 const selectedLanguage = computed({
     get() {
         return props.node.attrs.language
@@ -82,7 +83,7 @@ const selectedLanguage = computed({
         border-radius: 4px;
     }
     .is-selected {
-        color: red;
+        color: var(--theme-color);
     }
 }
 </style>

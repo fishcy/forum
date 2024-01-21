@@ -1,9 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import '@/assets/scss/index.scss'
-import "@/assets/scss/global.scss";
-// import "@/assets/scss/responsive.scss";
-import "highlight.js/scss/stackoverflow-light.scss";
+import '@/assets/scss/global.scss'
+import '@/assets/scss/elStyle.scss'
+import 'highlight.js/scss/stackoverflow-light.scss'
 import { pinia } from '@/stores'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'

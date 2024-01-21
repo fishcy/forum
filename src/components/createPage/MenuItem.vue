@@ -2,7 +2,7 @@
     <button
         class="menu-item"
         :class="{ 'is-active': isActive ? isActive() : null }"
-        @click="(action as (()=>void))"
+        @click="action"
         :title="title"
     >
         <font-awesome-icon :icon="icon" />
@@ -12,27 +12,12 @@
 <script setup lang="ts">
 import { toRefs } from 'vue'
 
-const props = defineProps({
-    icon: {
-        type: Array<string>,
-        required: true
-    },
-    title: {
-        type: String,
-        required: true
-    },
-    action: {
-        type: Function,
-        required: true
-    },
-    isActive: {
-        type: Function,
-        default: null
-    },
-    type: {
-        type: String
-    }
-})
+const props = defineProps<{
+    icon: Array<string>
+    title: string
+    action: () => void
+    isActive?: Function
+}>()
 
 const { icon, title, action, isActive } = toRefs(props)
 </script>
@@ -46,6 +31,7 @@ const { icon, title, action, isActive } = toRefs(props)
     width: 32px;
     height: 32px;
     margin-right: 4px;
+    font-size: 16px;
 
     &.is-active,
     &:hover {

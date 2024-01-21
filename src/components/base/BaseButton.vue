@@ -8,9 +8,9 @@
 
 <style lang="scss" scoped>
 .base-button {
-    background-color: var(--theme-color);
-    border-color: var(--theme-color);
-    color: #fff;
+    background-image: var(--theme-bg-color-1);
+    border: none;
+    color: #fff !important;
     border-radius: 8px;
     height: 40px;
 }

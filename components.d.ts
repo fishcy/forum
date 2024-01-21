@@ -29,6 +29,7 @@ declare module 'vue' {
     MenuItem: typeof import('./src/components/createPage/MenuItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SwitchFontColor: typeof import('./src/components/createPage/menuItem/SwitchFontColor.vue')['default']
     Tiptap: typeof import('./src/components/createPage/Tiptap.vue')['default']
     UserInfo: typeof import('./src/components/user/UserInfo.vue')['default']
     UserLogin: typeof import('./src/components/user/UserLogin.vue')['default']

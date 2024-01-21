@@ -11,6 +11,7 @@
     width: 100%;
     height: calc(100% - 60px);
     background-color: var(--background);
+    background-image: var(--theme-bg-color-2);
     overflow: auto;
     // position: relative;
 }

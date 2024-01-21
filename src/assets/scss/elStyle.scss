@@ -1,0 +1,25 @@
+.el-color-predefine__colors {
+    justify-content: center;
+    .el-color-predefine__color-selector {
+        margin-left: 15px;
+        &:nth-child(10n + 1) {
+            margin-left: 15px;
+        }
+        &:nth-child(8n + 1) {
+            margin-left: 0;
+        }
+    }
+    .selected {
+        box-shadow: 0 0 3px 2px var(--theme-color);
+    }
+}
+
+.el-button:hover {
+    border-color: var(--theme-color);
+    color: var(--theme-color);
+    background-color: unset;
+}
+
+.el-input__wrapper.is-focus {
+    box-shadow: 0 0 0 1px var(--theme-color) inset;
+}

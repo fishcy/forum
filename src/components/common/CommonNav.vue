@@ -37,7 +37,7 @@ import BaseButton from '../base/BaseButton.vue'
 import UserInfo from '../user/UserInfo.vue'
 import { useUserInfoStore, useCommunicationStore } from '@/stores'
 import { storeToRefs } from 'pinia'
-import { ref, watch } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { postThemeColor } from '@/api/index'
 
 const { getAvatar, getUserName } = useUserInfoStore()
@@ -57,12 +57,21 @@ const predefineColors = ref([
 ])
 
 // 监听主题颜色的变化，变化时更新后端数据
-watch(themeColor, (newThemeColor) => {
+watchEffect(() => {
     isLogin &&
         postThemeColor({
-            themeColor: newThemeColor
+            themeColor: themeColor.value
         })
-    document.documentElement.style.setProperty('--theme-color', newThemeColor)
+    // 修改:root上的css变量
+    document.documentElement.style.setProperty('--theme-color', themeColor.value)
+    document.documentElement.style.setProperty(
+        '--theme-bg-color-1',
+        `linear-gradient(53deg, ${themeColor.value}, 90%, #fff)`
+    )
+    document.documentElement.style.setProperty(
+        '--theme-bg-color-2',
+        `linear-gradient(180deg, ${themeColor.value}, 0.03%, #fff)`
+    )
 })
 
 // 登录 / 注册 弹窗是否可见
@@ -74,7 +83,8 @@ const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
     width: 100%;
     height: 60px;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 0 transparent, 0 0 0 0 transparent, 0 1px 4px 0 rgba(0, 0, 0, 0.02),
+        0 2px 12px 0 rgba(0, 0, 0, 0.04), 0 2px 6px 0 rgba(0, 0, 0, 0.02);
     position: sticky;
     position: -webkit-sticky; /* Safari */
     top: 0;

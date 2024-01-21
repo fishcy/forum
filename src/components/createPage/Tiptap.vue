@@ -16,11 +16,13 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import MenuBar from './MenuBar.vue'
 import CodeBlock from './CodeBlock.vue'
 import { Color } from '@tiptap/extension-color'
+import { TextStyle } from '@tiptap/extension-text-style'
+import Placeholder from '@tiptap/extension-placeholder'
 
 const lowlight = createLowlight(common)
 
 const editor = useEditor({
-    content: '<p>请输入</p>',
+    content: '',
     extensions: [
         StarterKit.configure({
             codeBlock: false
@@ -37,7 +39,13 @@ const editor = useEditor({
         }).configure({
             lowlight
         }),
-        Color
+        Color.configure({
+            types: ['textStyle']
+        }),
+        TextStyle,
+        Placeholder.configure({
+            placeholder: '请输入正文'
+        })
     ]
 })
 </script>
@@ -92,6 +100,13 @@ const editor = useEditor({
         p {
             margin-block-start: 10px;
             margin-block-end: 10px;
+        }
+        p.is-editor-empty:first-child::before {
+            content: attr(data-placeholder);
+            float: left;
+            color: #adb5bd;
+            pointer-events: none;
+            height: 0;
         }
     }
 }

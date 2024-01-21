@@ -68,7 +68,7 @@ const switchComponent = (event: MouseEvent) => {
                     color: #333;
 
                     &::after {
-                        background-color: var(--theme-color);
+                        background-image: var(--theme-bg-color-1);
                     }
                 }
             }
