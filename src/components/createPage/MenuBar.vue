@@ -24,8 +24,9 @@
 import { Editor } from '@tiptap/vue-3'
 import MenuItem from './MenuItem.vue'
 import type { Component } from 'vue'
-import { toRef, defineProps } from 'vue'
+import { toRef } from 'vue'
 import SwitchFontColor from './menuItem/SwitchFontColor.vue'
+import SwitchBackgroundColor from './menuItem/SwitchBackgroundColor.vue'
 
 const props = defineProps({
     editor: {
@@ -67,10 +68,8 @@ const items: Array<{
         isActive: () => editor.value.isActive('strike')
     },
     {
-        icon: ['fas', 'fill-drip'],
-        title: '背景颜色',
-        action: () => editor.value.chain().focus().toggleHighlight().run(),
-        isActive: () => editor.value.isActive('highlight')
+        component: SwitchBackgroundColor,
+        type: 'component'
     },
     {
         type: 'divider'

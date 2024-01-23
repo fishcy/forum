@@ -27,11 +27,11 @@ import {
     faItalic,
     faStrikethrough,
     faQuoteLeft,
-    faA
+    faA,
+    faCaretDown
 } from '@fortawesome/free-solid-svg-icons'
 import { faEye, faEyeSlash, faUser, faThumbsUp } from '@fortawesome/free-regular-svg-icons'
 
-// import router from './router'
 import router from './router'
 
 import { login } from '@/api/login'
@@ -55,7 +55,8 @@ library.add(
     faItalic,
     faStrikethrough,
     faQuoteLeft,
-    faA
+    faA,
+    faCaretDown
 )
 
 const app = createApp(App)

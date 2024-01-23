@@ -9,10 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     BaseButton: typeof import('./src/components/base/BaseButton.vue')['default']
     BaseInput: typeof import('./src/components/base/BaseInput.vue')['default']
-    BaseMask: typeof import('./src/components/base/BaseMask.vue')['default']
     BaseSearchBar: typeof import('./src/components/base/BaseSearchBar.vue')['default']
     CodeBlock: typeof import('./src/components/createPage/CodeBlock.vue')['default']
-    CommonFooter: typeof import('./src/components/common/CommonFooter.vue')['default']
     CommonMain: typeof import('./src/components/common/CommonMain.vue')['default']
     CommonNav: typeof import('./src/components/common/CommonNav.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -29,6 +27,7 @@ declare module 'vue' {
     MenuItem: typeof import('./src/components/createPage/MenuItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SwitchBackgroundColor: typeof import('./src/components/createPage/menuItem/SwitchBackgroundColor.vue')['default']
     SwitchFontColor: typeof import('./src/components/createPage/menuItem/SwitchFontColor.vue')['default']
     Tiptap: typeof import('./src/components/createPage/Tiptap.vue')['default']
     UserInfo: typeof import('./src/components/user/UserInfo.vue')['default']

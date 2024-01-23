@@ -37,7 +37,7 @@ import BaseButton from '../base/BaseButton.vue'
 import UserInfo from '../user/UserInfo.vue'
 import { useUserInfoStore, useCommunicationStore } from '@/stores'
 import { storeToRefs } from 'pinia'
-import { ref, watchEffect } from 'vue'
+import { ref, watch } from 'vue'
 import { postThemeColor } from '@/api/index'
 
 const { getAvatar, getUserName } = useUserInfoStore()
@@ -57,20 +57,20 @@ const predefineColors = ref([
 ])
 
 // 监听主题颜色的变化，变化时更新后端数据
-watchEffect(() => {
+watch(themeColor, (newThemeColor) => {
     isLogin &&
         postThemeColor({
-            themeColor: themeColor.value
+            themeColor: newThemeColor
         })
     // 修改:root上的css变量
-    document.documentElement.style.setProperty('--theme-color', themeColor.value)
+    document.documentElement.style.setProperty('--theme-color', newThemeColor)
     document.documentElement.style.setProperty(
         '--theme-bg-color-1',
-        `linear-gradient(53deg, ${themeColor.value}, 90%, #fff)`
+        `linear-gradient(53deg, ${newThemeColor}, 90%, #fff)`
     )
     document.documentElement.style.setProperty(
         '--theme-bg-color-2',
-        `linear-gradient(180deg, ${themeColor.value}, 0.03%, #fff)`
+        `linear-gradient(180deg, ${newThemeColor}, 0.03%, #fff)`
     )
 })
 
