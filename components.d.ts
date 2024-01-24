@@ -23,6 +23,7 @@ declare module 'vue' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     EntryList: typeof import('./src/components/homePage/EntryList.vue')['default']
     EntryListItem: typeof import('./src/components/homePage/EntryListItem.vue')['default']
+    InsertImage: typeof import('./src/components/createPage/menuItem/InsertImage.vue')['default']
     MenuBar: typeof import('./src/components/createPage/MenuBar.vue')['default']
     MenuItem: typeof import('./src/components/createPage/MenuItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

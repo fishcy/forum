@@ -24,9 +24,9 @@
 import { Editor } from '@tiptap/vue-3'
 import MenuItem from './MenuItem.vue'
 import type { Component } from 'vue'
-import { toRef } from 'vue'
 import SwitchFontColor from './menuItem/SwitchFontColor.vue'
 import SwitchBackgroundColor from './menuItem/SwitchBackgroundColor.vue'
+import InsertImage from './menuItem/InsertImage.vue'
 
 const props = defineProps({
     editor: {
@@ -34,8 +34,6 @@ const props = defineProps({
         required: true
     }
 })
-
-const editor = toRef(props, 'editor')
 
 const items: Array<{
     icon?: Array<string>
@@ -52,20 +50,20 @@ const items: Array<{
     {
         icon: ['fas', 'bold'],
         title: '粗体',
-        action: () => editor.value.chain().focus().toggleBold().run(),
-        isActive: () => editor.value.isActive('bold')
+        action: () => props.editor.chain().focus().toggleBold().run(),
+        isActive: () => props.editor.isActive('bold')
     },
     {
         icon: ['fas', 'italic'],
         title: '斜体',
-        action: () => editor.value.chain().focus().toggleItalic().run(),
-        isActive: () => editor.value.isActive('italic')
+        action: () => props.editor.chain().focus().toggleItalic().run(),
+        isActive: () => props.editor.isActive('italic')
     },
     {
         icon: ['fas', 'strikethrough'],
         title: 'Strike',
-        action: () => editor.value.chain().focus().toggleStrike().run(),
-        isActive: () => editor.value.isActive('strike')
+        action: () => props.editor.chain().focus().toggleStrike().run(),
+        isActive: () => props.editor.isActive('strike')
     },
     {
         component: SwitchBackgroundColor,
@@ -77,26 +75,26 @@ const items: Array<{
     {
         icon: ['fas', 'list-ul'],
         title: '无序列表',
-        action: () => editor.value.chain().focus().toggleBulletList().run(),
-        isActive: () => editor.value.isActive('bulletList')
+        action: () => props.editor.chain().focus().toggleBulletList().run(),
+        isActive: () => props.editor.isActive('bulletList')
     },
     {
         icon: ['fas', 'list-ol'],
         title: '有序列表',
-        action: () => editor.value.chain().focus().toggleOrderedList().run(),
-        isActive: () => editor.value.isActive('orderedList')
+        action: () => props.editor.chain().focus().toggleOrderedList().run(),
+        isActive: () => props.editor.isActive('orderedList')
     },
     {
         icon: ['fas', 'list-check'],
         title: '任务列表',
-        action: () => editor.value.chain().focus().toggleTaskList().run(),
-        isActive: () => editor.value.isActive('taskList')
+        action: () => props.editor.chain().focus().toggleTaskList().run(),
+        isActive: () => props.editor.isActive('taskList')
     },
     {
         icon: ['fas', 'code'],
         title: '代码块',
-        action: () => editor.value.chain().focus().toggleCodeBlock().run(),
-        isActive: () => editor.value.isActive('codeBlock')
+        action: () => props.editor.chain().focus().toggleCodeBlock().run(),
+        isActive: () => props.editor.isActive('codeBlock')
     },
     {
         type: 'divider'
@@ -104,8 +102,12 @@ const items: Array<{
     {
         icon: ['fas', 'quote-left'],
         title: '引用',
-        action: () => editor.value.chain().focus().toggleBlockquote().run(),
-        isActive: () => editor.value.isActive('blockquote')
+        action: () => props.editor.chain().focus().toggleBlockquote().run(),
+        isActive: () => props.editor.isActive('blockquote')
+    },
+    {
+        component: InsertImage,
+        type: 'component'
     },
     {
         type: 'divider'
@@ -113,12 +115,12 @@ const items: Array<{
     {
         icon: ['fas', 'rotate-left'],
         title: '撤销',
-        action: () => editor.value.chain().focus().undo().run()
+        action: () => props.editor.chain().focus().undo().run()
     },
     {
         icon: ['fas', 'rotate-right'],
         title: '重做',
-        action: () => editor.value.chain().focus().redo().run()
+        action: () => props.editor.chain().focus().redo().run()
     }
 ]
 </script>

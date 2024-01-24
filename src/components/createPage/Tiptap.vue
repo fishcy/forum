@@ -18,6 +18,8 @@ import CodeBlock from './CodeBlock.vue'
 import { Color } from '@tiptap/extension-color'
 import { TextStyle } from '@tiptap/extension-text-style'
 import Placeholder from '@tiptap/extension-placeholder'
+import Image from '@tiptap/extension-image'
+import { onBeforeUnmount } from 'vue'
 
 const lowlight = createLowlight(common)
 
@@ -45,8 +47,18 @@ const editor = useEditor({
         TextStyle,
         Placeholder.configure({
             placeholder: '请输入正文'
+        }),
+        Image.configure({
+            inline: true,
+            HTMLAttributes:{
+                class: 'tiptap-img'
+            }
         })
     ]
+})
+
+onBeforeUnmount(() => {
+    editor.value?.destroy()
 })
 </script>
 

@@ -57,22 +57,27 @@ const predefineColors = ref([
 ])
 
 // 监听主题颜色的变化，变化时更新后端数据
-watch(themeColor, (newThemeColor) => {
-    isLogin &&
+watch(
+    themeColor,
+    (newThemeColor) => {
         postThemeColor({
             themeColor: newThemeColor
         })
-    // 修改:root上的css变量
-    document.documentElement.style.setProperty('--theme-color', newThemeColor)
-    document.documentElement.style.setProperty(
-        '--theme-bg-color-1',
-        `linear-gradient(53deg, ${newThemeColor}, 90%, #fff)`
-    )
-    document.documentElement.style.setProperty(
-        '--theme-bg-color-2',
-        `linear-gradient(180deg, ${newThemeColor}, 0.03%, #fff)`
-    )
-})
+        // 修改:root上的css变量
+        document.documentElement.style.setProperty('--theme-color', newThemeColor)
+        document.documentElement.style.setProperty(
+            '--theme-bg-color-1',
+            `linear-gradient(53deg, ${newThemeColor}, 90%, #fff)`
+        )
+        document.documentElement.style.setProperty(
+            '--theme-bg-color-2',
+            `linear-gradient(180deg, ${newThemeColor}, 0.03%, #fff)`
+        )
+    },
+    {
+        immediate: true
+    }
+)
 
 // 登录 / 注册 弹窗是否可见
 const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())

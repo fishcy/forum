@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import MenuItem from '../MenuItem.vue'
 import { Editor } from '@tiptap/vue-3'
-import { toRef, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { predefineColor } from '@/config/predefine'
 
 const props = defineProps({
@@ -27,7 +27,6 @@ const props = defineProps({
         required: true
     }
 })
-const editor = toRef(props, 'editor')
 
 // 颜色选择器实例
 const colorPicker = ref()
@@ -40,7 +39,7 @@ const action = () => colorPicker.value.show()
 
 // 颜色变化时，设置字体的颜色
 watch(fontColor, (newFontColor) => {
-    editor.value.chain().focus().setColor(newFontColor).run()
+    props.editor.chain().focus().setColor(newFontColor).run()
     console.log(1)
 })
 </script>

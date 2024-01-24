@@ -1,12 +1,15 @@
 <template>
     <div class="switch-background-color">
-        <MenuItem
-            :icon="bgColorIcon"
-            :title="title"
-            :action="switchHighlightAction"
-            :is-active="isActive"
-            class="toggle-highlight"
-        ></MenuItem>
+        <div class="show-wrapper">
+            <MenuItem
+                :icon="bgColorIcon"
+                :title="title"
+                :action="switchHighlightAction"
+                :is-active="isActive"
+                class="toggle-highlight"
+            ></MenuItem>
+            <div class="show-background-color" :style="`background-color: ${bgColor}`"></div>
+        </div>
         <span class="color-picker">
             <ElColorPicker
                 v-model="bgColor"
@@ -15,18 +18,13 @@
                 :predefine="predefineColor"
             >
             </ElColorPicker>
-            <MenuItem
-                :icon="caretDownIcon"
-                :title="title"
-                :action="showColorPicker"
-                :style="`color: ${bgColor}`"
-            ></MenuItem>
+            <MenuItem :icon="caretDownIcon" :title="title" :action="showColorPicker"></MenuItem>
         </span>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, toRef, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { predefineColor } from '@/config/predefine'
 import { Editor } from '@tiptap/vue-3'
 import MenuItem from '../MenuItem.vue'
@@ -37,7 +35,6 @@ const props = defineProps({
         required: true
     }
 })
-const editor = toRef(props, 'editor')
 
 // 颜色选择器实例
 const bgColorPicker = ref()
@@ -53,20 +50,20 @@ let isSetted = false
 const switchHighlightAction = () => {
     if (isSetted) {
         isSetted = false
-        editor.value.chain().focus().unsetHighlight().run()
+        props.editor.chain().focus().unsetHighlight().run()
     } else {
         isSetted = true
-        editor.value.chain().focus().toggleHighlight({ color: bgColor.value }).run()
+        props.editor.chain().focus().toggleHighlight({ color: bgColor.value }).run()
     }
 }
-const isActive = () => editor.value.isActive('highlight', { color: bgColor.value })
+const isActive = () => props.editor.isActive('highlight', { color: bgColor.value })
 
 const caretDownIcon = ['fas', 'caret-down']
 const showColorPicker = () => {
     bgColorPicker.value.show()
 }
 watch(bgColor, (newBgColor) => {
-    editor.value.chain().focus().toggleHighlight({ color: newBgColor }).run()
+    props.editor.chain().focus().toggleHighlight({ color: newBgColor }).run()
 })
 </script>
 
@@ -74,6 +71,18 @@ watch(bgColor, (newBgColor) => {
 .switch-background-color {
     display: flex;
     margin-right: 4px;
+    .show-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        .show-background-color {
+            width: 10px;
+            height: 2px;
+            position: absolute;
+            border-radius: 8px;
+            top: 25px;
+        }
+    }
     .toggle-highlight {
         margin-right: 0;
     }
