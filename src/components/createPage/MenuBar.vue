@@ -27,6 +27,7 @@ import type { Component } from 'vue'
 import SwitchFontColor from './menuItem/SwitchFontColor.vue'
 import SwitchBackgroundColor from './menuItem/SwitchBackgroundColor.vue'
 import InsertImage from './menuItem/InsertImage.vue'
+import InsertLink from './menuItem/InsertLink.vue'
 
 const props = defineProps({
     editor: {
@@ -121,6 +122,10 @@ const items: Array<{
         icon: ['fas', 'rotate-right'],
         title: '重做',
         action: () => props.editor.chain().focus().redo().run()
+    },
+    {
+        component: InsertLink,
+        type: 'component'
     }
 ]
 </script>

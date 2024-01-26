@@ -28,7 +28,8 @@ import {
     faStrikethrough,
     faQuoteLeft,
     faA,
-    faCaretDown
+    faCaretDown,
+    faLink
 } from '@fortawesome/free-solid-svg-icons'
 import { faEye, faEyeSlash, faUser, faThumbsUp, faImage } from '@fortawesome/free-regular-svg-icons'
 
@@ -57,7 +58,8 @@ library.add(
     faQuoteLeft,
     faA,
     faCaretDown,
-    faImage
+    faImage,
+    faLink
 )
 
 const app = createApp(App)

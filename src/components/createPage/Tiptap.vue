@@ -19,6 +19,7 @@ import { Color } from '@tiptap/extension-color'
 import { TextStyle } from '@tiptap/extension-text-style'
 import Placeholder from '@tiptap/extension-placeholder'
 import Image from '@tiptap/extension-image'
+import Link from '@tiptap/extension-link'
 import { onBeforeUnmount } from 'vue'
 
 const lowlight = createLowlight(common)
@@ -50,10 +51,11 @@ const editor = useEditor({
         }),
         Image.configure({
             inline: true,
-            HTMLAttributes:{
+            HTMLAttributes: {
                 class: 'tiptap-img'
             }
-        })
+        }),
+        Link
     ]
 })
 
@@ -119,6 +121,12 @@ onBeforeUnmount(() => {
             color: #adb5bd;
             pointer-events: none;
             height: 0;
+        }
+
+        a {
+            text-decoration: underline;
+            cursor: pointer;
+            color: var(--theme-color);
         }
     }
 }

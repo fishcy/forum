@@ -23,3 +23,12 @@
 .el-input__wrapper.is-focus {
     box-shadow: 0 0 0 1px var(--theme-color) inset;
 }
+
+.el-dialog {
+    border-radius: 12px;
+    .el-dialog__headerbtn:hover {
+        .el-dialog__close {
+            color: var(--theme-color);
+        }
+    }
+}
