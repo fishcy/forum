@@ -1,5 +1,6 @@
 <template>
     <div class="menu-bar">
+        <!-- <div class="item-wrapper"> -->
         <template v-for="(item, index) in items">
             <div class="divider" v-if="item.type === 'divider'" :key="`divider_#${index}`"></div>
             <MenuItem
@@ -17,6 +18,7 @@
                 :editor="editor"
             ></component>
         </template>
+        <!-- </div> -->
     </div>
 </template>
 
@@ -135,17 +137,20 @@ const items: Array<{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 54px;
+    height: 60px;
     background-color: white;
     border-bottom: 1px solid #f3f3f6;
     position: fixed;
     z-index: 1;
     width: 100%;
+    box-sizing: border-box;
+    // .item-wrapper {
     .divider {
         background-color: #e3e3e6;
         height: 20px;
         width: 1px;
         margin-right: 4px;
     }
+    // }
 }
 </style>

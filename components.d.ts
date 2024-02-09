@@ -13,6 +13,7 @@ declare module 'vue' {
     CodeBlock: typeof import('./src/components/createPage/CodeBlock.vue')['default']
     CommonMain: typeof import('./src/components/common/CommonMain.vue')['default']
     CommonNav: typeof import('./src/components/common/CommonNav.vue')['default']
+    CreateFooter: typeof import('./src/components/createPage/CreateFooter.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElDialog: typeof import('element-plus/es')['ElDialog']

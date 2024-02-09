@@ -14,10 +14,34 @@
     }
 }
 
+.el-button {
+    border-radius: 8px;
+    height: 40px;
+    background-color: var(--theme-color);
+    border-color: var(--theme-color);
+    color: #fff;
+}
+
+// .el-button:hover {
+//     border-color: var(--theme-color);
+//     color: var(--theme-color);
+//     background-color: unset;
+// }
 .el-button:hover {
+    background-color: var(--theme-color-hover);
+    border-color: var(--theme-color-hover);
+    color: #fff;
+}
+
+.el-button:active,
+.el-button:focus {
     border-color: var(--theme-color);
     color: var(--theme-color);
-    background-color: unset;
+    background-color: var(--theme-color-active);
+}
+
+.el-input {
+    height: 40px;
 }
 
 .el-input__wrapper.is-focus {

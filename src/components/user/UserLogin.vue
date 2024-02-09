@@ -1,25 +1,23 @@
 <template>
     <ElForm :model="loginData" ref="formRef" :rules="rules" class="login-form">
         <ElFormItem prop="account">
-            <BaseInput v-model="loginData.account" placeholder="请输入手机号或邮箱"></BaseInput>
+            <ElInput v-model="loginData.account" placeholder="请输入手机号或邮箱"></ElInput>
         </ElFormItem>
         <ElFormItem prop="password">
-            <BaseInput
+            <ElInput
                 v-model="loginData.password"
                 type="password"
                 show-password
                 placeholder="请输入密码"
-            ></BaseInput>
+            ></ElInput>
         </ElFormItem>
         <ElFormItem>
-            <BaseButton @click="submitForm(formRef)" class="submit">登录</BaseButton>
+            <ElButton @click="submitForm(formRef)" class="submit">登录</ElButton>
         </ElFormItem>
     </ElForm>
 </template>
 
 <script setup lang="ts">
-import BaseInput from '../base/BaseInput.vue'
-import BaseButton from '../base/BaseButton.vue'
 import { ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { login } from '@/api'

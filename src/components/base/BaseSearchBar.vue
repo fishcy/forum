@@ -45,7 +45,7 @@ const searchContent = ref('')
     }
 
     &:deep(.el-input-group__append .el-button:hover) {
-        opacity: 0.7;
+        color: var(--theme-color-hover);
     }
 }
 </style>

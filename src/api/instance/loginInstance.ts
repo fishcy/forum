@@ -19,7 +19,7 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(
     (response) => {
-        if (response.data.message === '成功') {
+        if (response.data.msg === '成功') {
             const { setAuth, setAvatar, setUserName, setThemeColor } = useUserInfoStore()
             setAuth(response.headers.authorization)
             const { avatar, userName, themeColor } = response.data.data

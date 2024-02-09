@@ -18,8 +18,14 @@ const router = createRouter({
         },
         {
             path: '/create',
-            component: () => import('@/views/createPage.vue'),
+            component: () => import('@/views/CreatePage.vue'),
             meta: { requiresAuth: true }
+        },
+        {
+            path: '/post/:article_id',
+            component: () => import('@/views/ArticleDetailPage.vue'),
+            meta: { requiresAuth: true },
+            props: true
         }
     ]
 })

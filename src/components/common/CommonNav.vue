@@ -3,7 +3,7 @@
         <div class="nav-wrapper">
             <!-- 设置主题颜色 -->
             <div class="nav-setting">
-                <span :style="`color: ${themeColor}; position: relative;`" class="skin">
+                <span class="skin">
                     <font-awesome-icon :icon="['fas', 'shirt']" />
                     <ElColorPicker
                         v-model="themeColor"
@@ -15,8 +15,8 @@
             </div>
             <BaseSearchBar />
             <div class="nav-button-wrapper" v-show="!isLogin">
-                <BaseButton class="button" @click="loginOrRegisterVisible = true"
-                    >登录 / 注册</BaseButton
+                <ElButton class="button" @click="loginOrRegisterVisible = true"
+                    >登录 / 注册</ElButton
                 >
             </div>
             <div class="nav-user-wrapper" v-show="isLogin">
@@ -24,7 +24,7 @@
             </div>
             <div class="publish-button">
                 <RouterLink to="/create">
-                    <BaseButton class="button">发布</BaseButton>
+                    <ElButton class="button">发布</ElButton>
                 </RouterLink>
             </div>
         </div>
@@ -33,7 +33,6 @@
 
 <script setup lang="ts">
 import BaseSearchBar from '../base/BaseSearchBar.vue'
-import BaseButton from '../base/BaseButton.vue'
 import UserInfo from '../user/UserInfo.vue'
 import { useUserInfoStore, useCommunicationStore } from '@/stores'
 import { storeToRefs } from 'pinia'
@@ -45,7 +44,7 @@ const { isLogin, themeColor } = storeToRefs(useUserInfoStore())
 
 // 颜色选择器
 const predefineColors = ref([
-    '#32ca99',
+    'rgb(50, 202, 153)',
     'rgb(0, 0, 0)',
     'rgb(38, 38, 38)',
     'rgb(89, 89, 89)',
@@ -55,6 +54,32 @@ const predefineColors = ref([
     'rgb(245, 245, 245)',
     'rgb(250, 250, 250)'
 ])
+
+// 深化颜色
+const darkedColor = (rgb: string, percentage: number = 20) => {
+    const rgbaArr = rgb
+        .replace(/[rgba(|)]/g, '')
+        .split(', ')
+        .map((val) => parseFloat(val))
+    for (let i = 0; i < 3; ++i) {
+        rgbaArr[i] = Math.round(rgbaArr[i] * (1 - percentage / 100))
+    }
+    if (!rgbaArr[3]) rgbaArr[3] = 1
+    return `rgba(${rgbaArr.join(', ')})`
+}
+
+// 浅化颜色
+const lightenColor = (rgb: string, percentage: number = 80) => {
+    const rgbaArr = rgb
+        .replace(/[rgba(|)]/g, '')
+        .split(', ')
+        .map((val) => parseFloat(val))
+    for (let i = 0; i < 3; ++i) {
+        rgbaArr[i] = Math.round(rgbaArr[i] + (255 - rgbaArr[i]) * (percentage / 100))
+    }
+    if (!rgbaArr[3]) rgbaArr[3] = 1
+    return `rgba(${rgbaArr.join(', ')})`
+}
 
 // 监听主题颜色的变化，变化时更新后端数据
 watch(
@@ -66,12 +91,20 @@ watch(
         // 修改:root上的css变量
         document.documentElement.style.setProperty('--theme-color', newThemeColor)
         document.documentElement.style.setProperty(
+            '--theme-color-hover',
+            darkedColor(newThemeColor)
+        )
+        document.documentElement.style.setProperty(
+            '--theme-color-active',
+            lightenColor(newThemeColor, 90)
+        )
+        document.documentElement.style.setProperty(
             '--theme-bg-color-1',
             `linear-gradient(53deg, ${newThemeColor}, 90%, #fff)`
         )
         document.documentElement.style.setProperty(
             '--theme-bg-color-2',
-            `linear-gradient(180deg, ${newThemeColor}, 0.03%, #fff)`
+            `linear-gradient(180deg, ${lightenColor(newThemeColor)}, 5%, #f8f8f8)`
         )
     },
     {
@@ -111,6 +144,11 @@ const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
                 font-size: 20px;
                 margin: 0 20px;
                 cursor: pointer;
+                position: relative;
+                color: var(--theme-color);
+                &:hover {
+                    color: var(--theme-color-hover);
+                }
             }
             &:deep(.el-color-picker) {
                 position: absolute;

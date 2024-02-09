@@ -7,5 +7,12 @@ export async function postThemeColor(data: any, config: AxiosRequestConfig = {})
 
 export async function uploadImage(data: any, config: AxiosRequestConfig = {}) {
     config.headers = { ...config.headers, 'Content-Type': 'multipart/form-data' }
-    return await apiInstance.post('/upload', data, config)
+    return await apiInstance.post('/upload-image', data, config)
+}
+
+export async function uploadArticle(data: any, config: AxiosRequestConfig = {}) {
+    return await apiInstance.post('/upload-article', data, config)
+}
+export async function getRecommendArticle(config: AxiosRequestConfig = {}) {
+    return await apiInstance.get('/recommend', config)
 }
