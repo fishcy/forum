@@ -48,6 +48,10 @@
     box-shadow: 0 0 0 1px var(--theme-color) inset;
 }
 
+.el-select__wrapper.is-focused {
+    box-shadow: 0 0 0 1px var(--theme-color) inset;
+}
+
 .el-dialog {
     border-radius: 12px;
     .el-dialog__headerbtn:hover {

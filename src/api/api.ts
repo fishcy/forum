@@ -16,3 +16,7 @@ export async function uploadArticle(data: any, config: AxiosRequestConfig = {}) 
 export async function getRecommendArticle(config: AxiosRequestConfig = {}) {
     return await apiInstance.get('/recommend', config)
 }
+
+export async function getArticleDetail(data: any, config: AxiosRequestConfig = {}) {
+    return await apiInstance.post('/article-detail', data, config)
+}

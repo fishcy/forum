@@ -1,6 +1,10 @@
 <template>
     <main class="main">
-        <RouterView></RouterView>
+        <RouterView v-slot="{ Component }">
+            <KeepAlive exclude="ArticleDetailPage,CreatePage">
+                <component :is="Component"></component>
+            </KeepAlive>
+        </RouterView>
     </main>
 </template>
 

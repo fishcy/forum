@@ -20,11 +20,6 @@ import { ref } from 'vue'
 
 import { getRecommendArticle } from '@/api'
 
-// article_id: item._id.toString(),
-//       title: item.title,
-//       brief_content: item.content.substring(0, 30),
-//       author_id: item.authorId.toString(),
-//       create_time: item.createTime,
 type article = {
     article_id: string
     title: string

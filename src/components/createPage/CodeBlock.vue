@@ -40,39 +40,13 @@ const selectedLanguage = computed({
 </script>
 
 <style lang="scss" scoped>
-.code-block {
-    background-color: #f6f6f6;
-    padding: 10px;
-    border-radius: 10px;
-    .code-block-nav {
-        display: flex;
-        justify-content: end;
-        padding-bottom: 8px;
-        .selector {
-            width: 100px;
-            // background-color: #282c34;
-            &:deep(.is-focused) {
-                box-shadow: none;
-            }
-        }
-    }
-
-    pre {
-        background: #f6f6f6;
-        color: #2f3337;
-        margin: 0;
-
-        code {
-            color: inherit;
-            padding: 0;
-            background: none;
-            font-size: 16px;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono,
-                Courier New, monospace;
-        }
+.code-block-nav {
+    &:deep(.el-select__wrapper.is-focused) {
+        box-shadow: 0 0 0 1px var(--theme-color) inset;
     }
 }
 </style>
+
 <style lang="scss">
 .option-wrapper {
     padding: 10px;

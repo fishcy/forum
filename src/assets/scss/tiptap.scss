@@ -1,0 +1,107 @@
+.tiptap,
+.article-content {
+    overflow: auto;
+    min-height: 100%;
+    background-color: var(--layer-1);
+    font-size: 16px;
+    box-sizing: border-box;
+
+    ul[data-type='taskList'] {
+        list-style: none;
+        padding: 0;
+        li {
+            display: flex;
+            align-items: center;
+            & > label {
+                flex: 0 0 auto;
+                margin-right: 10px;
+                user-select: none;
+            }
+
+            & > div {
+                flex: 1 1 auto;
+            }
+        }
+    }
+    ul {
+        list-style: disc;
+    }
+    ul,
+    ol {
+        padding-left: 30px;
+    }
+    blockquote {
+        border-left: 2px solid rgba(#0d0d0d, 0.1);
+        padding-left: 10px;
+    }
+    p {
+        margin-block-start: 10px;
+        margin-block-end: 10px;
+    }
+    p.is-editor-empty:first-child::before {
+        content: attr(data-placeholder);
+        float: left;
+        color: #adb5bd;
+        pointer-events: none;
+        height: 0;
+    }
+
+    a {
+        text-decoration: underline;
+        cursor: pointer;
+        color: var(--theme-color);
+    }
+
+    .tiptap-img {
+        max-width: 100%;
+    }
+
+    .code-block,
+    .code-view {
+        background-color: #f6f6f6;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        .code-block-nav,
+        .code-view-nav {
+            display: flex;
+            justify-content: end;
+            padding-bottom: 8px;
+            .selector {
+                width: 100px;
+                &:deep(.is-focused) {
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .code-view-nav {
+            .language {
+                width: 100px;
+                height: 24px;
+                font-size: 12px;
+                background-color: #fff;
+                color: #606266;
+                text-align: center;
+                line-height: 24px;
+                box-shadow: 0 0 0 1px #dcdfe6 inset;
+                border-radius: 4px;
+            }
+        }
+
+        pre {
+            background: #f6f6f6;
+            color: #2f3337;
+            margin: 0;
+
+            code {
+                color: inherit;
+                padding: 0;
+                background: none;
+                font-size: 16px;
+                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono,
+                    Courier New, monospace;
+            }
+        }
+    }
+}

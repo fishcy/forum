@@ -3,6 +3,7 @@ import App from './App.vue'
 import '@/assets/scss/index.scss'
 import '@/assets/scss/global.scss'
 import '@/assets/scss/elStyle.scss'
+import '@/assets/scss/tiptap.scss'
 import 'highlight.js/scss/stackoverflow-light.scss'
 import { pinia } from '@/stores'
 /* import the fontawesome core */

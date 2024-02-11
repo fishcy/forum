@@ -11,6 +11,7 @@ declare module 'vue' {
     BaseInput: typeof import('./src/components/base/BaseInput.vue')['default']
     BaseSearchBar: typeof import('./src/components/base/BaseSearchBar.vue')['default']
     CodeBlock: typeof import('./src/components/createPage/CodeBlock.vue')['default']
+    CodeView: typeof import('./src/components/articleDetailPage/CodeView.vue')['default']
     CommonMain: typeof import('./src/components/common/CommonMain.vue')['default']
     CommonNav: typeof import('./src/components/common/CommonNav.vue')['default']
     CreateFooter: typeof import('./src/components/createPage/CreateFooter.vue')['default']
