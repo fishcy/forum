@@ -77,7 +77,9 @@ const editor = useEditor({
 const articleTitle = ref('')
 const articleContent = ref('')
 getArticleDetail({
-    article_id: props.article_id
+    params: {
+        article_id: props.article_id
+    }
 }).then((res) => {
     const articleInfo = res.data.data.article_info
     articleTitle.value = articleInfo.title

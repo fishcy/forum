@@ -25,9 +25,7 @@ import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 
 import { common, createLowlight } from 'lowlight'
-import MenuBar from './MenuBar.vue'
 import CodeBlock from './CodeBlock.vue'
-import CreateFooter from '@/components/createPage/CreateFooter.vue'
 
 const lowlight = createLowlight(common)
 

@@ -24,7 +24,6 @@
 
 <script setup lang="ts">
 import { Editor } from '@tiptap/vue-3'
-import MenuItem from './MenuItem.vue'
 import type { Component } from 'vue'
 import SwitchFontColor from './menuItem/SwitchFontColor.vue'
 import SwitchBackgroundColor from './menuItem/SwitchBackgroundColor.vue'

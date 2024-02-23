@@ -9,13 +9,14 @@
                 :title="item.title"
                 :details="item.brief_content"
                 :author="item.author_id"
+                :like-num="item.like_num"
+                :view-num="item.view_num"
             ></EntryListItem>
         </RouterLink>
     </div>
 </template>
 
 <script setup lang="ts">
-import EntryListItem from '@/components/homePage/EntryListItem.vue'
 import { ref } from 'vue'
 
 import { getRecommendArticle } from '@/api'
@@ -26,12 +27,13 @@ type article = {
     brief_content: string
     author_id: string
     create_time: number
+    like_num: number
+    view_num: number
 }
 
 const articleList = ref<article[]>([])
 getRecommendArticle().then((res) => {
     let response = res.data as { data: { [key: string]: any }; msg: string }
-    console.log(response.data.articleList)
     articleList.value.push(...response.data.articleList)
 })
 </script>

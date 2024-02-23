@@ -30,7 +30,9 @@ import {
     faQuoteLeft,
     faA,
     faCaretDown,
-    faLink
+    faLink,
+    faCommentDots,
+    faEllipsis
 } from '@fortawesome/free-solid-svg-icons'
 import { faEye, faEyeSlash, faUser, faThumbsUp, faImage } from '@fortawesome/free-regular-svg-icons'
 
@@ -60,7 +62,9 @@ library.add(
     faA,
     faCaretDown,
     faImage,
-    faLink
+    faLink,
+    faCommentDots,
+    faEllipsis
 )
 
 const app = createApp(App)

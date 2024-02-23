@@ -26,18 +26,14 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
-
-const props = defineProps({
+defineProps({
     title: String,
     details: String,
     imgSrc: String,
     author: String,
-    viewNum: String,
-    likeNum: String
+    viewNum: Number,
+    likeNum: Number
 })
-
-const { title, details, imgSrc } = toRefs(props)
 </script>
 
 <style lang="scss" scoped>

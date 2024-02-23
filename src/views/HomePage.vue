@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import EntryList from '@/components/homePage/EntryList.vue'
 </script>
 
 <style lang="scss" scoped>

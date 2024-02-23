@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useUserInfoStore } from '@/stores'
-import 'vue-router'
 
 declare module 'vue-router' {
     interface RouterMeta {
@@ -26,6 +25,40 @@ const router = createRouter({
             component: () => import('@/views/ArticleDetailPage.vue'),
             meta: { requiresAuth: true },
             props: true
+        },
+        {
+            path: '/user/:user_id',
+            component: () => import('@/views/UserHomePage.vue'),
+            meta: { requiresAuth: true },
+            props: true,
+            children: [
+                {
+                    path: '',
+                    redirect: (to) => {
+                        return `/user/${to.params.user_id}/dynamic`
+                    }
+                },
+                {
+                    path: 'dynamic',
+                    component: () => import('@/views/userHome/UserDynamic.vue'),
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'posts',
+                    component: () => import('@/views/userHome/UserPosts.vue'),
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'collections',
+                    component: () => import('@/views/userHome/UserCollections.vue'),
+                    meta: { requiresAuth: true }
+                },
+                {
+                    path: 'tags',
+                    component: () => import('@/views/userHome/UserTags.vue'),
+                    meta: { requiresAuth: true }
+                }
+            ]
         }
     ]
 })

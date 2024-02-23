@@ -14,42 +14,12 @@
                     </a>
                 </li>
             </ul>
-            <ul class="dropdown-list">
-                <li class="dropdown-item">
-                    <a href="#" class="open-menu-page">
-                        <font-awesome-icon :icon="['far', 'user']" class="menu-icon" />
-                        <span class="menu-name">我的主页</span>
-                    </a>
-                </li>
-                <li class="dropdown-item">
-                    <a href="#" class="open-menu-page">
-                        <font-awesome-icon :icon="['far', 'user']" class="menu-icon" />
-                        <span class="menu-name">我的主页</span>
-                    </a>
-                </li>
-                <li class="dropdown-item">
-                    <a href="#" class="open-menu-page">
-                        <font-awesome-icon :icon="['far', 'user']" class="menu-icon" />
-                        <span class="menu-name">我的主页</span>
-                    </a>
-                </li>
-                <li class="dropdown-item">
-                    <a href="#" class="open-menu-page">
-                        <font-awesome-icon :icon="['far', 'user']" class="menu-icon" />
-                        <span class="menu-name">我的主页</span>
-                    </a>
-                </li>
-                <li class="dropdown-item">
-                    <a href="#" class="open-menu-page">
-                        <font-awesome-icon :icon="['far', 'user']" class="menu-icon" />
-                        <span class="menu-name">我的主页</span>
-                    </a>
-                </li>
-                <li class="dropdown-item">
-                    <a href="#" class="open-menu-page">
-                        <font-awesome-icon :icon="['far', 'user']" class="menu-icon" />
-                        <span class="menu-name">我的主页</span>
-                    </a>
+            <ul class="dropdown-list" v-if="user.isLogin">
+                <li class="dropdown-item" v-for="item in dropdownList" :key="item.text">
+                    <RouterLink :to="`/user/${userId}`" class="open-menu-page">
+                        <font-awesome-icon :icon="item.icon" class="menu-icon" />
+                        <span class="menu-name">{{ item.text }}</span>
+                    </RouterLink>
                 </li>
             </ul>
             <div class="group">
@@ -63,12 +33,17 @@
 import { useElementShow } from '@/hooks'
 import { useUserInfoStore } from '@/stores'
 import { useRouter } from 'vue-router'
-defineProps({
+import { computed } from 'vue'
+const props = defineProps({
     avatar: {
         type: String,
         required: true
     },
     username: {
+        type: String,
+        required: true
+    },
+    userId: {
         type: String,
         required: true
     }
@@ -85,6 +60,16 @@ const logout = () => {
 const isShowMenu = useElementShow('menu', 'avatar')
 
 const actionCountList = ['关注', '赞过', '收藏']
+
+const dropdownList = computed(() => {
+    return [
+        {
+            to: `/user/${props.userId}`,
+            text: '我的主页',
+            icon: ['far', 'user']
+        }
+    ]
+})
 </script>
 
 <style lang="scss" scoped>

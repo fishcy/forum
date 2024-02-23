@@ -20,7 +20,11 @@
                 >
             </div>
             <div class="nav-user-wrapper" v-show="isLogin">
-                <UserInfo :avatar="getAvatar()" :username="String(getUserName())"></UserInfo>
+                <UserInfo
+                    :avatar="getAvatar()"
+                    :username="String(getUserName())"
+                    :user-id="getUserId()"
+                ></UserInfo>
             </div>
             <div class="publish-button">
                 <RouterLink to="/create">
@@ -32,16 +36,13 @@
 </template>
 
 <script setup lang="ts">
-import BaseSearchBar from '../base/BaseSearchBar.vue'
-import UserInfo from '../user/UserInfo.vue'
 import { useUserInfoStore, useCommunicationStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
 import { postThemeColor } from '@/api/index'
 
-const { getAvatar, getUserName } = useUserInfoStore()
+const { getAvatar, getUserName, getUserId } = useUserInfoStore()
 const { isLogin, themeColor } = storeToRefs(useUserInfoStore())
-
 // 颜色选择器
 const predefineColors = ref([
     'rgb(50, 202, 153)',
