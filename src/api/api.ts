@@ -20,3 +20,7 @@ export async function getRecommendArticle(config: AxiosRequestConfig = {}) {
 export async function getArticleDetail(data: any, config: AxiosRequestConfig = {}) {
     return await apiInstance.post('/article-detail', data, config)
 }
+
+export async function getCaptcha(config: AxiosRequestConfig = {}) {
+    return await apiInstance.get('/get-captcha', config)
+}

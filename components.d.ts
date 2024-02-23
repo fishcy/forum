@@ -7,8 +7,6 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BaseButton: typeof import('./src/components/base/BaseButton.vue')['default']
-    BaseInput: typeof import('./src/components/base/BaseInput.vue')['default']
     BaseSearchBar: typeof import('./src/components/base/BaseSearchBar.vue')['default']
     CodeBlock: typeof import('./src/components/createPage/CodeBlock.vue')['default']
     CodeView: typeof import('./src/components/articleDetailPage/CodeView.vue')['default']
@@ -21,9 +19,6 @@ declare module 'vue' {
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
-    ElOption: typeof import('element-plus/es')['ElOption']
-    ElPopover: typeof import('element-plus/es')['ElPopover']
-    ElSelect: typeof import('element-plus/es')['ElSelect']
     EntryList: typeof import('./src/components/homePage/EntryList.vue')['default']
     EntryListItem: typeof import('./src/components/homePage/EntryListItem.vue')['default']
     InsertImage: typeof import('./src/components/createPage/menuItem/InsertImage.vue')['default']

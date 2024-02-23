@@ -38,7 +38,7 @@ const switchComponent = (event: MouseEvent) => {
 <style lang="scss" scoped>
 .login-register-card {
     width: 100%;
-    height: 350px;
+    // height: 370px;
     .card-nav {
         display: flex;
         padding: 20px 5px;
