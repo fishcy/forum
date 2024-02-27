@@ -43,22 +43,26 @@ const router = createRouter({
                 {
                     path: 'dynamic',
                     component: () => import('@/views/userHome/UserDynamic.vue'),
-                    meta: { requiresAuth: true }
+                    meta: { requiresAuth: true },
+                    props: true
                 },
                 {
                     path: 'posts',
                     component: () => import('@/views/userHome/UserPosts.vue'),
-                    meta: { requiresAuth: true }
+                    meta: { requiresAuth: true },
+                    props: true
                 },
                 {
                     path: 'collections',
                     component: () => import('@/views/userHome/UserCollections.vue'),
-                    meta: { requiresAuth: true }
+                    meta: { requiresAuth: true },
+                    props: true
                 },
                 {
                     path: 'tags',
                     component: () => import('@/views/userHome/UserTags.vue'),
-                    meta: { requiresAuth: true }
+                    meta: { requiresAuth: true },
+                    props: true
                 }
             ]
         },

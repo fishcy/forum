@@ -1,7 +1,7 @@
 <template>
     <div class="user-view">
         <UserInfoBlock :user_id="user_id"></UserInfoBlock>
-        <ListBlock></ListBlock>
+        <ListBlock :user_id="user_id"></ListBlock>
     </div>
 </template>
 

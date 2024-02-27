@@ -9,11 +9,11 @@ import type {
     UserInfo
 } from '@/types/global.d.ts'
 
-export async function postThemeColor(
+export async function patchThemeColor(
     data: any,
     config: AxiosRequestConfig = {}
 ): Promise<AxiosResponse> {
-    return await apiInstance.post('/themeColor', data, config)
+    return await apiInstance.patch('/themeColor', data, config)
 }
 
 export async function uploadImage(

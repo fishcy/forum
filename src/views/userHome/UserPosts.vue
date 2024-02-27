@@ -36,12 +36,27 @@
 import { ref } from 'vue'
 import { getOwnArticles } from '@/api'
 import type { ArticleEntry } from '@/types/global.d.ts'
+import { handleSuccessResponse } from '@/utils/handlePromise'
+const props = defineProps({
+    user_id: {
+        type: String,
+        required: true
+    }
+})
 
 const ownArticles = ref<ArticleEntry[]>()
 
-getOwnArticles().then((res) => {
-    ownArticles.value = res.data.data.own_articles
+getOwnArticles({
+    params: {
+        user_id: props.user_id
+    }
 })
+    .then((res) => {
+        handleSuccessResponse(res.data, () => {
+            ownArticles.value = res.data.data.own_articles
+        })
+    })
+    .catch((err) => {})
 </script>
 
 <style lang="scss" scoped>

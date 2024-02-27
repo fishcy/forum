@@ -17,33 +17,32 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useUserInfoStore } from '@/stores'
-import { onBeforeMount } from 'vue'
 
-const { getUserId } = useUserInfoStore()
-
-const headList = ref()
-onBeforeMount(() => {
-    const userId = getUserId()
-    headList.value = [
-        {
-            text: '动态',
-            to: `/user/${userId}/dynamic`
-        },
-        {
-            text: '文章',
-            to: `/user/${userId}/posts`
-        },
-        {
-            text: '收藏',
-            to: `/user/${userId}/collections`
-        },
-        {
-            text: '关注',
-            to: `/user/${userId}/tags`
-        }
-    ]
+const props = defineProps({
+    user_id: {
+        type: String,
+        required: true
+    }
 })
+
+const headList = ref([
+    {
+        text: '动态',
+        to: `/user/${props.user_id}/dynamic`
+    },
+    {
+        text: '文章',
+        to: `/user/${props.user_id}/posts`
+    },
+    {
+        text: '收藏',
+        to: `/user/${props.user_id}/collections`
+    },
+    {
+        text: '关注',
+        to: `/user/${props.user_id}/tags`
+    }
+])
 </script>
 
 <style lang="scss" scoped>
@@ -63,14 +62,14 @@ onBeforeMount(() => {
             font-weight: 400;
             color: #909090;
 
-            &:hover{
+            &:hover {
                 color: var(--theme-color);
             }
         }
     }
 
     .active {
-        .item-title{
+        .item-title {
             color: var(--theme-color);
         }
     }

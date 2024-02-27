@@ -39,7 +39,7 @@
 import { useUserInfoStore, useCommunicationStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { ref, watch, onMounted } from 'vue'
-import { postThemeColor } from '@/api'
+import { patchThemeColor } from '@/api'
 import { updateThemeColor } from '@/utils/updateThemeColor'
 
 const { getAvatar, getUserName, getUserId } = useUserInfoStore()
@@ -59,7 +59,7 @@ const predefineColors = ref([
 
 // 监听主题颜色的变化，变化时更新后端数据
 watch(themeColor, (newThemeColor) => {
-    postThemeColor({
+    patchThemeColor({
         themeColor: newThemeColor
     }).catch((err) => {})
     // 修改:root上的css变量
