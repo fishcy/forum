@@ -16,7 +16,11 @@
             </ul>
             <ul class="dropdown-list" v-if="user.isLogin">
                 <li class="dropdown-item" v-for="item in dropdownList" :key="item.text">
-                    <RouterLink :to="`/user/${userId}`" class="open-menu-page">
+                    <RouterLink
+                        :to="`/user/${userId}`"
+                        class="open-menu-page"
+                        @click="isShowMenu = false"
+                    >
                         <font-awesome-icon :icon="item.icon" class="menu-icon" />
                         <span class="menu-name">{{ item.text }}</span>
                     </RouterLink>

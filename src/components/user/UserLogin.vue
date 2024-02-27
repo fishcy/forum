@@ -33,7 +33,10 @@ import { checkEmail, checkPhone } from '@/utils/check'
 import { useCommunicationStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import type { AxiosResponse } from 'axios'
-// import { ElMessage } from 'element-plus'
+import { handleLoginSuccess } from '@/utils/user'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 // 控制 登录 / 注册 的展示
 const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
@@ -119,6 +122,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
                 .then(() => {
                     // 登录成功后，隐藏 登录 / 注册 组件
                     loginOrRegisterVisible.value = false
+                    handleLoginSuccess(router)
                 })
                 .catch((err) => {
                     console.log(err)

@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useUserInfoStore } from '@/stores'
+import { useUserInfoStore, useCommunicationStore } from '@/stores'
+import { storeToRefs } from 'pinia'
+import { autoLogin } from '@/utils/user'
 
 declare module 'vue-router' {
     interface RouterMeta {
@@ -59,14 +61,31 @@ const router = createRouter({
                     meta: { requiresAuth: true }
                 }
             ]
+        },
+        {
+            path: '/published',
+            component: () => import('@/views/PostPublished.vue'),
+            meta: { requiresAuth: true }
         }
     ]
 })
 
 // 导航路由
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
     const user = useUserInfoStore()
+    // 每次进入路由前，都判断一下是否登录了，没有登录则登录
+    if (!user.isLogin) {
+        try {
+            await autoLogin()
+        } catch (err) {
+            /* empty */
+        }
+    }
+    // 如果需要权限且没有登录，则弹出登录页面
     if (to.meta.requiresAuth && !user.isLogin) {
+        sessionStorage.setItem('REDIRECT_PATH', to.fullPath)
+        const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
+        loginOrRegisterVisible.value = true
         return '/'
     }
 })

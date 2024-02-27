@@ -26,7 +26,7 @@
                     :user-id="getUserId()"
                 ></UserInfo>
             </div>
-            <div class="publish-button">
+            <div class="publish-button" v-if="isLogin">
                 <RouterLink to="/create">
                     <ElButton class="button">发布</ElButton>
                 </RouterLink>
@@ -38,8 +38,9 @@
 <script setup lang="ts">
 import { useUserInfoStore, useCommunicationStore } from '@/stores'
 import { storeToRefs } from 'pinia'
-import { ref, watch } from 'vue'
-import { postThemeColor } from '@/api/index'
+import { ref, watch, onMounted } from 'vue'
+import { postThemeColor } from '@/api'
+import { updateThemeColor } from '@/utils/updateThemeColor'
 
 const { getAvatar, getUserName, getUserId } = useUserInfoStore()
 const { isLogin, themeColor } = storeToRefs(useUserInfoStore())
@@ -56,62 +57,18 @@ const predefineColors = ref([
     'rgb(250, 250, 250)'
 ])
 
-// 深化颜色
-const darkedColor = (rgb: string, percentage: number = 20) => {
-    const rgbaArr = rgb
-        .replace(/[rgba(|)]/g, '')
-        .split(', ')
-        .map((val) => parseFloat(val))
-    for (let i = 0; i < 3; ++i) {
-        rgbaArr[i] = Math.round(rgbaArr[i] * (1 - percentage / 100))
-    }
-    if (!rgbaArr[3]) rgbaArr[3] = 1
-    return `rgba(${rgbaArr.join(', ')})`
-}
-
-// 浅化颜色
-const lightenColor = (rgb: string, percentage: number = 80) => {
-    const rgbaArr = rgb
-        .replace(/[rgba(|)]/g, '')
-        .split(', ')
-        .map((val) => parseFloat(val))
-    for (let i = 0; i < 3; ++i) {
-        rgbaArr[i] = Math.round(rgbaArr[i] + (255 - rgbaArr[i]) * (percentage / 100))
-    }
-    if (!rgbaArr[3]) rgbaArr[3] = 1
-    return `rgba(${rgbaArr.join(', ')})`
-}
-
 // 监听主题颜色的变化，变化时更新后端数据
-watch(
-    themeColor,
-    (newThemeColor) => {
-        postThemeColor({
-            themeColor: newThemeColor
-        })
-        // 修改:root上的css变量
-        document.documentElement.style.setProperty('--theme-color', newThemeColor)
-        document.documentElement.style.setProperty(
-            '--theme-color-hover',
-            darkedColor(newThemeColor)
-        )
-        document.documentElement.style.setProperty(
-            '--theme-color-active',
-            lightenColor(newThemeColor, 90)
-        )
-        document.documentElement.style.setProperty(
-            '--theme-bg-color-1',
-            `linear-gradient(53deg, ${newThemeColor}, 90%, #fff)`
-        )
-        document.documentElement.style.setProperty(
-            '--theme-bg-color-2',
-            `linear-gradient(180deg, ${lightenColor(newThemeColor)}, 5%, #f8f8f8)`
-        )
-    },
-    {
-        immediate: true
-    }
-)
+watch(themeColor, (newThemeColor) => {
+    postThemeColor({
+        themeColor: newThemeColor
+    }).catch((err) => {})
+    // 修改:root上的css变量
+    updateThemeColor(newThemeColor)
+})
+
+onMounted(() => {
+    updateThemeColor(themeColor.value)
+})
 
 // 登录 / 注册 弹窗是否可见
 const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
@@ -163,7 +120,7 @@ const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
             display: flex;
             justify-content: center;
             & .button {
-                width: px2rem(90);
+                width: 90px;
                 height: 36px;
                 margin: 0 10px;
             }

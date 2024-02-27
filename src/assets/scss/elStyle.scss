@@ -33,11 +33,17 @@
     color: #fff;
 }
 
+// .el-button:active,
+// .el-button:focus {
+//     border-color: var(--theme-color);
+//     color: var(--theme-color);
+//     background-color: var(--theme-color-active);
+// }
 .el-button:active,
 .el-button:focus {
+    background-color: var(--theme-color);
     border-color: var(--theme-color);
-    color: var(--theme-color);
-    background-color: var(--theme-color-active);
+    color: #fff;
 }
 
 .el-input {

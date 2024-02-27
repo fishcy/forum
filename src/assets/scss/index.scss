@@ -17,24 +17,8 @@ body {
     user-select: none;
 }
 
-// 当窗口大小变化时，font-size的计算值也会变（但是vw的值不变）
-// 最终，1rem会对应上 设计稿里的100px
-html {
-    font-size: 100px;
-
-    // 尺寸为375时，100px对应的vw，作为根节点的font-size
-    @media screen and (max-width: $phone-max-width) {
-        font-size: calc(100 / 375) * 100vw;
-    }
-
-    // 同理
-    @media screen and (max-width: $pc-max-width) {
-        font-size: calc(100 / 1024) * 100vw;
-    }
-}
-
 body {
-    font-size: px2rem(20);
+    font-size: 16px;
     font-family: PingFang SC, Source Han Sans CN, Microsoft YaHei, system, -apple-system,
         BlinkMacSystemFont, Helvetica Neue, Helvetica, Segoe UI, wenquanyi micro hei,
         Hiragino Sans GB, Hiragino Sans GB W3, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,

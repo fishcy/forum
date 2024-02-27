@@ -2,7 +2,17 @@
     <div class="article-wrapper">
         <div class="article">
             <h1 class="article-title">{{ articleTitle }}</h1>
-            <div class="author-info-block"></div>
+            <div class="author-info-block">
+                <div class="author-info-box">
+                    <div class="author-name">
+                        <RouterLink :to="`/user/${articleInfo?.author_id}`" class="username">
+                            <span class="name ellipsis"
+                                >{{ articleInfo?.author_name }}
+                            </span></RouterLink
+                        >
+                    </div>
+                </div>
+            </div>
             <template v-if="editor">
                 <EditorContent :editor="editor" class="article-content"></EditorContent>
             </template>
@@ -28,6 +38,8 @@ import Link from '@tiptap/extension-link'
 
 import { common, createLowlight } from 'lowlight'
 import CodeBlock from '@/components/articleDetailPage/CodeView.vue'
+import type { ArticleInfo } from '@/types/global.d.ts'
+import { handleSuccessResponse } from '@/utils/handlePromise'
 
 const props = defineProps({
     article_id: {
@@ -74,30 +86,61 @@ const editor = useEditor({
     editable: false
 })
 
+const articleInfo = ref<ArticleInfo>()
 const articleTitle = ref('')
 const articleContent = ref('')
 getArticleDetail({
     params: {
         article_id: props.article_id
     }
-}).then((res) => {
-    const articleInfo = res.data.data.article_info
-    articleTitle.value = articleInfo.title
-    articleContent.value = articleInfo.content
-    editor.value?.commands.setContent(articleContent.value)
 })
+    .then((res) => {
+        handleSuccessResponse(res.data, () => {
+            articleInfo.value = res.data.data.article_info
+            articleTitle.value = articleInfo.value.title
+            articleContent.value = articleInfo.value.html_content
+            editor.value?.commands.setContent(articleContent.value)
+        })
+    })
+    .catch((err) => {})
 </script>
 
 <style lang="scss" scoped>
 .article-wrapper {
-    width: 820px;
+    border-radius: 4px;
+    max-width: 820px;
     margin: 20px auto 0;
     padding: 32px;
     box-sizing: border-box;
     background-color: white;
-
+    word-wrap: break-word;
     .article {
         user-select: auto;
+
+        .article-title {
+            margin-bottom: 15px;
+        }
+
+        .author-info-block {
+            .author-info-box {
+                .author-name {
+                    .username {
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 22px;
+
+                        .name {
+                            display: inline-block;
+                            max-width: 150px;
+                            color: #515167;
+                            &:hover {
+                                color: var(--theme-color);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 </style>

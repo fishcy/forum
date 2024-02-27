@@ -28,10 +28,6 @@ export default defineConfig({
                 additionalData: `
                     $phone-max-width: 768px;
                     $pc-max-width: 1024px;
-                    // px转rem
-                    @function px2rem($px) {
-                        @return calc(#{$px} / 100 * 1rem);
-                    }
                     `
             }
         }

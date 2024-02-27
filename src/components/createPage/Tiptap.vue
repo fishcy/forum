@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
     padding: 0 30px;
     padding-top: 60px;
     min-height: 100%;
-    width: 930px;
+    max-width: 930px;
     margin: 0 auto;
     box-sizing: border-box;
     background-color: var(--layer-1);

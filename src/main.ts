@@ -31,14 +31,18 @@ import {
     faA,
     faCaretDown,
     faLink,
-    faCommentDots,
     faEllipsis
 } from '@fortawesome/free-solid-svg-icons'
-import { faEye, faEyeSlash, faUser, faThumbsUp, faImage } from '@fortawesome/free-regular-svg-icons'
+import {
+    faEye,
+    faEyeSlash,
+    faUser,
+    faThumbsUp,
+    faImage,
+    faCommentDots
+} from '@fortawesome/free-regular-svg-icons'
 
 import router from './router'
-
-import { login } from '@/api/login'
 
 library.add(
     faCheck,
@@ -73,17 +77,3 @@ app.use(router)
 app.use(pinia)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.mount('#app')
-
-// 自动登录
-async function tryAutoLogin() {
-    const Authorization = localStorage.getItem('Authorization')
-    if (Authorization) {
-        const res = await login({}, { headers: { Authorization } })
-        if (res.data.message === '成功') {
-            console.log('自动登录成功')
-            console.log(res.headers.authorization)
-        }
-    }
-}
-
-tryAutoLogin()
