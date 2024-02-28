@@ -49,6 +49,7 @@ export async function getOwnArticles(
 }
 
 export async function getCaptcha(config: AxiosRequestConfig = {}): Promise<AxiosResponse> {
+    config.withCredentials = true
     return await apiInstance.get('/get-captcha', config)
 }
 
