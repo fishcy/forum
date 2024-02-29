@@ -31,7 +31,6 @@ declare module 'vue' {
     ListBlock: typeof import('./src/components/userHomePage/ListBlock.vue')['default']
     MenuBar: typeof import('./src/components/createPage/MenuBar.vue')['default']
     MenuItem: typeof import('./src/components/createPage/MenuItem.vue')['default']
-    PostItem: typeof import('./src/components/userHomePage/userPosts/PostItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SwitchBackgroundColor: typeof import('./src/components/createPage/menuItem/SwitchBackgroundColor.vue')['default']
