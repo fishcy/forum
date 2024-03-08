@@ -29,17 +29,13 @@ import { ref, onBeforeMount } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { login, getCaptcha } from '@/api'
 import { checkEmail, checkPhone } from '@/utils/check'
-
-import { useCommunicationStore } from '@/stores'
-import { storeToRefs } from 'pinia'
 import type { AxiosResponse } from 'axios'
 import { handleLoginSuccess } from '@/utils/user'
 import { useRouter } from 'vue-router'
 
-const router = useRouter()
+const emit = defineEmits(['loginSuccess'])
 
-// 控制 登录 / 注册 的展示
-const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
+const router = useRouter()
 
 const email = ref('')
 const phone = ref('')
@@ -121,12 +117,10 @@ const submitForm = (formEl: FormInstance | undefined) => {
             userLogin()
                 .then(() => {
                     // 登录成功后，隐藏 登录 / 注册 组件
-                    loginOrRegisterVisible.value = false
+                    emit('loginSuccess')
                     handleLoginSuccess(router)
                 })
-                .catch((err) => {
-                    console.log(err)
-                })
+                .catch((err) => {})
         } else {
             return false
         }

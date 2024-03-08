@@ -48,6 +48,7 @@ import { getCaptcha, register } from '@/api'
 
 import type { FormInstance, FormRules } from 'element-plus'
 import { onBeforeMount } from 'vue'
+import { handleSuccessResponse } from '@/utils/handlePromise'
 
 const formRef = ref<FormInstance>()
 
@@ -106,6 +107,8 @@ const rules = ref<FormRules<typeof registerData>>({
     captcha: [{ validator: validateCaptcha, trigger: 'blur' }]
 })
 
+const emit = defineEmits(['registerSuccess'])
+
 const submitForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return
     formEl.validate((valid) => {
@@ -116,13 +119,9 @@ const submitForm = (formEl: FormInstance | undefined) => {
                 password: registerData.value.password,
                 captcha: registerData.value.captcha
             }).then((res) => {
-                if (res.data.msg !== '成功') {
-                    ElMessage({
-                        type: 'warning',
-                        message: res.data.msg,
-                        grouping: true
-                    })
-                }
+                handleSuccessResponse(res.data, () => {
+                    emit('registerSuccess')
+                })
             })
         } else {
             return false

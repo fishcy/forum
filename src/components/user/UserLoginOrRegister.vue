@@ -1,11 +1,16 @@
 <template>
-    <ElDialog v-model="loginOrRegisterVisible" width="350px" append-to-body>
+    <ElButton class="button" @click="loginOrRegisterVisible = true">登录 / 注册</ElButton>
+    <ElDialog v-model="loginOrRegisterVisible" width="350px" append-to-body :z-index="99999">
         <div class="login-register-card">
             <ul class="card-nav" @click="switchComponent">
                 <li class="item" :class="{ isActive: showComponent === UserLogin }">登录</li>
                 <li class="item" :class="{ isActive: showComponent === UserRegister }">注册</li>
             </ul>
-            <component :is="showComponent"></component>
+            <component
+                :is="showComponent"
+                @loginSuccess="handleSuccess"
+                @registerSuccess="handleSuccess"
+            ></component>
         </div>
     </ElDialog>
 </template>
@@ -32,6 +37,10 @@ const switchComponent = (event: MouseEvent) => {
     } else if (innerText === '注册') {
         showComponent.value = UserRegister
     }
+}
+
+const handleSuccess = () => {
+    loginOrRegisterVisible.value = false
 }
 </script>
 

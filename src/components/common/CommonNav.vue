@@ -15,9 +15,7 @@
             </div>
             <BaseSearchBar />
             <div class="nav-button-wrapper" v-show="!isLogin">
-                <ElButton class="button" @click="loginOrRegisterVisible = true"
-                    >登录 / 注册</ElButton
-                >
+                <UserLoginOrRegister></UserLoginOrRegister>
             </div>
             <div class="nav-user-wrapper" v-show="isLogin">
                 <UserInfo
@@ -36,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { useUserInfoStore, useCommunicationStore } from '@/stores'
+import { useUserInfoStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { ref, watch, onMounted } from 'vue'
 import { patchThemeColor } from '@/api'
@@ -69,9 +67,6 @@ watch(themeColor, (newThemeColor) => {
 onMounted(() => {
     updateThemeColor(themeColor.value)
 })
-
-// 登录 / 注册 弹窗是否可见
-const { loginOrRegisterVisible } = storeToRefs(useCommunicationStore())
 </script>
 
 <style lang="scss" scoped>
