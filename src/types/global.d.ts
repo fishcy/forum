@@ -20,6 +20,7 @@ export interface ArticleEntry {
     create_time: number
     like_num: number
     view_num: number
+    is_like: number
 }
 
 interface ArticleInfo {
@@ -44,4 +45,40 @@ export interface UserInfo {
 export interface Response<T = any> {
     msg: string
     data: T
+}
+
+interface CommentInfo {
+    comment_content: string
+    comment_image: string
+    create_time: number
+    like_num: number
+    is_like: number
+}
+
+interface CommentUserInfo {
+    user_id: string
+    user_name: string
+    avatar: string
+}
+
+interface ReplyInfo {
+    reply_comment: string
+    reply_image: string
+    create_time: number
+    like_num: number
+    is_like: number
+}
+
+export interface Reply {
+    reply_id: string
+    reply_info: ReplyInfo
+    user_info: CommentUserInfo
+    reply_user: CommentUserInfo
+}
+
+export interface Comment {
+    comment_id: string
+    comment_info: CommentInfo
+    user_info: CommentUserInfo
+    reply_infos: Array<Reply>
 }

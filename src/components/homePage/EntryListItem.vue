@@ -4,7 +4,7 @@
             <div class="title-row">{{ title }}</div>
             <div class="main-row">
                 <div class="main-box">
-                    <div class="abstract">{{ briefContent }}</div>
+                    <div class="abstract">{{ brief_content }}</div>
                 </div>
                 <ul class="action-list">
                     <li class="item" v-if="$slots['action-list-first']">
@@ -13,28 +13,28 @@
                     </li>
                     <li class="item view">
                         <font-awesome-icon :icon="['far', 'eye']" />
-                        <span>{{ viewNum }}</span>
+                        <span>{{ view_num }}</span>
                     </li>
                     <li class="item like">
-                        <font-awesome-icon :icon="['far', 'thumbs-up']" />
-                        <span>{{ likeNum }}</span>
+                        <ThumbsUp
+                            :likeNum="like_num"
+                            :isLike="is_like"
+                            :itemId="article_id"
+                            :type="1"
+                        ></ThumbsUp>
                     </li>
                     <slot name="action-list-end"></slot>
                 </ul>
             </div>
         </div>
-        <img v-if="coverImage" :src="coverImage" loading="lazy" :alt="title" />
+        <img v-if="cover_image" :src="cover_image" loading="lazy" :alt="title" />
     </div>
 </template>
 
 <script setup lang="ts">
-defineProps({
-    title: String,
-    briefContent: String,
-    coverImage: String,
-    viewNum: Number,
-    likeNum: Number
-})
+import type { ArticleEntry } from '@/types/global.d.ts'
+
+defineProps<ArticleEntry>()
 </script>
 
 <style lang="scss" scoped>

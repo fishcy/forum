@@ -4,15 +4,10 @@
             :to="`/post/${item.article_id}`"
             v-for="item in articleList"
             :key="item.article_id"
+            target="_blank"
             class="item"
         >
-            <EntryListItem
-                :title="item.title"
-                :brief-content="item.brief_content"
-                :like-num="item.like_num"
-                :view-num="item.view_num"
-                :cover-image="item.cover_image"
-            >
+            <EntryListItem v-bind="item">
                 <template #action-list-first>
                     <span class="author">
                         {{ item.author_name }}
@@ -29,8 +24,16 @@ import { ref } from 'vue'
 import { getRecommendArticle } from '@/api'
 import type { ArticleEntry } from '@/types/global.d.ts'
 
+import { useUserInfoStore } from '@/stores'
+
+const { getUserId } = useUserInfoStore()
+
 const articleList = ref<ArticleEntry[]>([])
-getRecommendArticle().then((res) => {
+getRecommendArticle({
+    params: {
+        userId: getUserId()
+    }
+}).then((res) => {
     let response = res.data as { data: { [key: string]: any }; msg: string }
     articleList.value.push(...response.data.articleList)
 })

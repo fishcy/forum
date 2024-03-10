@@ -25,7 +25,7 @@
                 ></UserInfo>
             </div>
             <div class="publish-button" v-if="isLogin">
-                <RouterLink to="/create">
+                <RouterLink to="/create" target="_blank">
                     <ElButton class="button">发布</ElButton>
                 </RouterLink>
             </div>
@@ -79,7 +79,7 @@ onMounted(() => {
     position: sticky;
     position: -webkit-sticky; /* Safari */
     top: 0;
-    z-index: 1000;
+    z-index: 10000;
 
     .nav-wrapper {
         height: 100%;

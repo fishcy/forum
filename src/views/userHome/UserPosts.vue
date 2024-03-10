@@ -6,13 +6,7 @@
             :key="item.article_id"
             class="item"
         >
-            <EntryListItem
-                :title="item.title"
-                :brief-content="item.brief_content"
-                :like-num="item.like_num"
-                :view-num="item.view_num"
-                :cover-image="item.cover_image"
-            >
+            <EntryListItem v-bind="item">
                 <template #action-list-first>
                     <span class="time">
                         {{ new Date(item.create_time).toLocaleString() }}

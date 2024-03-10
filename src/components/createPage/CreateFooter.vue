@@ -49,7 +49,8 @@ const submit = () => {
         ElMessage({
             type: 'warning',
             message: '标题或文章内容不能为空',
-            grouping: true
+            grouping: true,
+            offset: 100
         })
         return
     }
@@ -72,7 +73,8 @@ const submit = () => {
                 ElMessage({
                     type: 'warning',
                     message: res.data.msg,
-                    grouping: true
+                    grouping: true,
+                    offset: 100
                 })
             }
         })

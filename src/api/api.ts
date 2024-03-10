@@ -3,6 +3,8 @@ import apiInstance from './instance/apiInstance'
 import type {
     ArticleDetail,
     ArticleEntry,
+    Comment,
+    Reply,
     Response,
     UploadArticleResponse,
     UploadImageResponse,
@@ -57,4 +59,44 @@ export async function getUserInfo(
     config: AxiosRequestConfig = {}
 ): Promise<AxiosResponse<Response<UserInfo>>> {
     return await apiInstance.get('/get-user-info', config)
+}
+
+export async function thumbsUp(
+    data: any,
+    config: AxiosRequestConfig = {}
+): Promise<AxiosResponse<Response>> {
+    return await apiInstance.post('/thumbs-up', data, config)
+}
+
+export async function cancelThumbsUp(
+    data: any,
+    config: AxiosRequestConfig = {}
+): Promise<AxiosRequestConfig<Response>> {
+    return await apiInstance.post('/cancel-thumbs-up', data, config)
+}
+
+export async function publishComment(
+    data: any,
+    config: AxiosRequestConfig = {}
+): Promise<AxiosResponse<Response<Comment>>> {
+    return await apiInstance.post('/publish-comment', data, config)
+}
+
+export async function getComments(
+    config: AxiosRequestConfig = {}
+): Promise<AxiosResponse<Response<Comment[]>>> {
+    return await apiInstance.get('/get-comments', config)
+}
+
+export async function publishReply(
+    data: any,
+    config: AxiosRequestConfig = {}
+): Promise<AxiosResponse<Response<Reply>>> {
+    return await apiInstance.post('/publish-reply', data, config)
+}
+
+export async function getReplys(
+    config: AxiosRequestConfig = {}
+): Promise<AxiosResponse<Response<Reply[]>>> {
+    return await apiInstance.get('/get-replys', config)
 }

@@ -7,7 +7,8 @@ export const handleSuccessResponse = (res: Response, callback: Function | (() =>
         ElMessage({
             type: 'warning',
             message: res.msg,
-            grouping: true
+            grouping: true,
+            offset: 100
         })
     }
 }

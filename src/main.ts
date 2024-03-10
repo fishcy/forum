@@ -39,7 +39,8 @@ import {
     faUser,
     faThumbsUp,
     faImage,
-    faCommentDots
+    faCommentDots,
+    faFaceSmile
 } from '@fortawesome/free-regular-svg-icons'
 
 import router from './router'
@@ -68,7 +69,8 @@ library.add(
     faImage,
     faLink,
     faCommentDots,
-    faEllipsis
+    faEllipsis,
+    faFaceSmile
 )
 
 const app = createApp(App)
