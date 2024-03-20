@@ -9,7 +9,7 @@
             <EntryListItem v-bind="item">
                 <template #action-list-first>
                     <span class="time">
-                        {{ new Date(item.create_time).toLocaleString() }}
+                        {{ timeDistanceFromNow(item.create_time) }}
                     </span>
                 </template>
                 <template #action-list-end>
@@ -31,6 +31,7 @@ import { ref } from 'vue'
 import { getOwnArticles } from '@/api'
 import type { ArticleEntry } from '@/types/global.d.ts'
 import { handleSuccessResponse } from '@/utils/handlePromise'
+import { timeDistanceFromNow } from '@/utils/date'
 const props = defineProps({
     user_id: {
         type: String,

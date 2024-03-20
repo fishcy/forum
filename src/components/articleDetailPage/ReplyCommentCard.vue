@@ -32,7 +32,7 @@
             </div>
             <div class="reply-action">
                 <div class="action-time">
-                    {{ new Date(reply_info.create_time).toLocaleString() }}
+                    {{ timeDistanceFromNow(reply_info.create_time) }}
                 </div>
                 <ThumbsUp
                     :like-num="reply_info.like_num"
@@ -59,6 +59,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { Reply } from '@/types/global.d.ts'
+import { timeDistanceFromNow } from '@/utils/date'
 const props = defineProps<Reply>()
 
 const emit = defineEmits(['publishReplySuccess'])
@@ -140,6 +141,8 @@ const publishSuccess = (data: Reply) => {
             display: flex;
             margin-top: 8px;
             .action-time {
+                color: #8a919f;
+                font-size: 14px;
                 margin-right: 10px;
                 display: flex;
                 align-items: center;

@@ -11,6 +11,9 @@
                             </span></RouterLink
                         >
                     </div>
+                    <div class="meta-box">
+                        <time datetime="">{{ formatDate(articleInfo?.create_time!) }}</time>
+                    </div>
                 </div>
             </div>
             <template v-if="editor">
@@ -40,6 +43,7 @@ import { common, createLowlight } from 'lowlight'
 import CodeView from '@/components/articleDetailPage/CodeView.vue'
 import type { ArticleInfo } from '@/types/global.d.ts'
 import { handleSuccessResponse } from '@/utils/handlePromise'
+import { formatDate } from '@/utils/date'
 
 const props = defineProps({
     article_id: {
@@ -123,11 +127,15 @@ getArticleDetail({
 
         .author-info-block {
             .author-info-box {
+                display: flex;
                 .author-name {
+                    display: flex;
+                    margin-right: 16px;
                     .username {
                         font-size: 14px;
                         font-weight: 400;
                         line-height: 22px;
+                        display: flex;
 
                         .name {
                             display: inline-block;
@@ -137,6 +145,13 @@ getArticleDetail({
                                 color: var(--theme-color);
                             }
                         }
+                    }
+                }
+
+                .meta-box {
+                    color: #8a919f;
+                    font-size: 14px;
+                    time {
                     }
                 }
             }
