@@ -40,7 +40,8 @@ import {
     faThumbsUp,
     faImage,
     faCommentDots,
-    faFaceSmile
+    faFaceSmile,
+    faEnvelope
 } from '@fortawesome/free-regular-svg-icons'
 
 import router from './router'
@@ -70,11 +71,15 @@ library.add(
     faLink,
     faCommentDots,
     faEllipsis,
-    faFaceSmile
+    faFaceSmile,
+    faEnvelope
 )
+
+import InfiniteScrollUp from './directives/infiniteScroll'
 
 const app = createApp(App)
 
+app.directive('infinite-scroll-up', InfiniteScrollUp)
 app.use(router)
 app.use(pinia)
 app.component('font-awesome-icon', FontAwesomeIcon)

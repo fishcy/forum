@@ -3,13 +3,17 @@
         <ElPopover
             trigger="click"
             width="429px"
-            placement="bottom-start"
+            :placement="placement"
             popper-class="emoji-popper"
             :popper-options="popperOptions"
             :teleported="false"
         >
             <template #reference>
-                <font-awesome-icon :icon="['far', 'face-smile']" class="emoji-button" />
+                <font-awesome-icon
+                    :icon="['far', 'face-smile']"
+                    class="emoji-button"
+                    @click="handleClick"
+                />
             </template>
             <template #default>
                 <div class="picker-item">
@@ -45,6 +49,16 @@
 import twemoji from 'twemoji'
 import { ref } from 'vue'
 import { faceEmoji } from '@/config/emoji'
+import type { Placement } from 'element-plus'
+
+withDefaults(
+    defineProps<{
+        placement?: Placement
+    }>(),
+    {
+        placement: 'bottom-start'
+    }
+)
 
 const popperOptions = {
     modifiers: [
@@ -87,7 +101,7 @@ const updateCache = (emoji: string) => {
     if (recentUsingEmoji.value.length > maxCache) recentUsingEmoji.value.length = maxCache
 }
 
-const emit = defineEmits(['pick-emoji'])
+const emit = defineEmits(['pick-emoji', 'show-emoji-panel'])
 
 const pickEmoji = (event: MouseEvent) => {
     const target = event.target as HTMLImageElement
@@ -96,6 +110,10 @@ const pickEmoji = (event: MouseEvent) => {
         emit('pick-emoji', target.cloneNode(true))
         updateCache(target.alt)
     }
+}
+
+const handleClick = () => {
+    emit('show-emoji-panel')
 }
 </script>
 

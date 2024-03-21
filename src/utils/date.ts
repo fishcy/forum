@@ -32,3 +32,34 @@ export const formatDate = (timestamp: number) => {
 
     return `${year}-${month}-${day}`
 }
+
+export const formatMessageDate = (timestamp: number) => {
+    const now = new Date()
+    const targetDate = new Date(timestamp)
+
+    const year = targetDate.getFullYear()
+    const month = String(targetDate.getMonth() + 1).padStart(2, '0')
+    const day = String(targetDate.getDate()).padStart(2, '0')
+    const hours = String(targetDate.getHours()).padStart(2, '0')
+    const minutes = String(targetDate.getMinutes()).padStart(2, '0')
+
+    // 如果是同一年，则忽略年份
+    if (now.getFullYear() === year) {
+        // 如果是同一天，则忽略年月日
+        if (now.getDate() === targetDate.getDate() && now.getMonth() === targetDate.getMonth()) {
+            return `${hours}:${minutes}`
+        }
+        // 如果是昨天，则替换年月日为昨天
+        const yesterday = new Date(now)
+        yesterday.setDate(now.getDate() - 1)
+        if (
+            yesterday.getDate() === targetDate.getDate() &&
+            yesterday.getMonth() === targetDate.getMonth()
+        ) {
+            return `昨天 ${hours}:${minutes}`
+        }
+        return `${month}-${day} ${hours}:${minutes}`
+    }
+
+    return `${year}-${month}-${day} ${hours}:${minutes}`
+}

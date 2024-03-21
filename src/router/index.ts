@@ -20,7 +20,7 @@ const router = createRouter({
         {
             path: '/create',
             component: () => import('@/views/CreatePage.vue'),
-            meta: { requiresAuth: true }
+            meta: { requiresAuth: false }
         },
         {
             path: '/post/:article_id',
@@ -70,6 +70,12 @@ const router = createRouter({
             path: '/published',
             component: () => import('@/views/PostPublished.vue'),
             meta: { requiresAuth: true }
+        },
+        {
+            path: '/privateChat',
+            component: () => import('@/views/PrivateChatPage.vue'),
+            meta: { requiresAuth: true },
+            props: true
         }
     ]
 })

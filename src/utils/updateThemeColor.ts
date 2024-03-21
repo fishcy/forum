@@ -39,4 +39,8 @@ export const updateThemeColor = (newThemeColor: string) => {
         '--theme-bg-color-2',
         `linear-gradient(180deg, ${lightenColor(newThemeColor, 90)}, 5%, #f8f8f8)`
     )
+    document.documentElement.style.setProperty(
+        '--theme-message-bg-color',
+        lightenColor(newThemeColor, 10)
+    )
 }

@@ -3,6 +3,9 @@ import apiInstance from './instance/apiInstance'
 import type {
     ArticleDetail,
     ArticleEntry,
+    ChatEntry,
+    ChatRecord,
+    ChatRecordResponse,
     Comment,
     Reply,
     Response,
@@ -99,4 +102,22 @@ export async function getReplys(
     config: AxiosRequestConfig = {}
 ): Promise<AxiosResponse<Response<Reply[]>>> {
     return await apiInstance.get('/get-replys', config)
+}
+
+export async function chatWithUser(
+    config: AxiosRequestConfig = {}
+): Promise<AxiosResponse<Response>> {
+    return await apiInstance.get('/chat-with-user', config)
+}
+
+export async function getChatList(
+    config: AxiosRequestConfig = {}
+): Promise<AxiosResponse<Response<ChatEntry[]>>> {
+    return await apiInstance.get('/get-chat-list', config)
+}
+
+export async function getChatRecords(
+    config: AxiosRequestConfig = {}
+): Promise<AxiosResponse<Response<ChatRecordResponse>>> {
+    return await apiInstance.get('/get-chat-record', config)
 }

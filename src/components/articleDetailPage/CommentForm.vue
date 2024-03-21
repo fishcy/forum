@@ -1,16 +1,6 @@
 <template>
     <div class="comment-form">
-        <div
-            ref="richInput"
-            class="rich-input"
-            :class="{ empty: isShowPlaceholder }"
-            contenteditable
-            placeholder="来评论吧！"
-            @blur="handleBlur"
-            @paste="handlePaste"
-            @input="handleInput"
-            v-html="commentContent"
-        ></div>
+        <InputEditor placeholder="来评论吧！" ref="input" class="rich-input"></InputEditor>
         <div class="image-preview-box">
             <div
                 v-if="image"
@@ -19,10 +9,14 @@
             ></div>
         </div>
         <div class="action-box">
-            <EmojiPicker class="item" @pick-emoji="pickEmoji"></EmojiPicker>
+            <EmojiPicker
+                class="item"
+                @pick-emoji="pickEmoji"
+                @show-emoji-panel="setFocus"
+            ></EmojiPicker>
             <UploadImage class="item" @get-image="getImage"></UploadImage>
             <div style="flex: 1 1 0"></div>
-            <ElButton @click="handleClick">发送</ElButton>
+            <ElButton @click="submit">发送</ElButton>
         </div>
     </div>
 </template>
@@ -32,6 +26,7 @@ import { ref } from 'vue'
 import type { Response, UploadImageResponse } from '@/types/global.d.ts'
 import { publishComment, publishReply } from '@/api'
 import { handleSuccessResponse } from '@/utils/handlePromise'
+import type InputEditor from '../InputEditor.vue'
 
 const emit = defineEmits(['publishSuccess'])
 
@@ -45,47 +40,26 @@ const props = defineProps<{
     replyToUserId?: string
 }>()
 
-const image = ref('')
-const getImage = (res: Response<UploadImageResponse>) => {
-    image.value = res.data.url
-}
-
-const isShowPlaceholder = ref(true)
-const handleInput = (event: Event) => {
-    const target = event.target as Element
-    if (target.innerHTML) {
-        isShowPlaceholder.value = false
-    } else {
-        isShowPlaceholder.value = true
-    }
-}
-
-const richInput = ref<HTMLElement>()
+const input = ref<InstanceType<typeof InputEditor>>()
 
 // 选择emoji
 const pickEmoji = (emoji: HTMLImageElement) => {
-    isShowPlaceholder.value = false
-    richInput.value?.appendChild(emoji)
-}
-
-const commentContent = ref('')
-
-const handleBlur = (event: Event) => {
-    const target = event.target as Element
-    commentContent.value = target.innerHTML
-}
-
-// 处理粘贴事件，并去除粘贴的默认样式
-const handlePaste = (event: ClipboardEvent) => {
-    event.stopPropagation()
-    event.preventDefault()
-    // @ts-ignore
-    let paste = (event.clipboardData || window.clipboardData).getData('text')
+    input.value!.isShowPlaceholder = false
+    input.value!.focus()
     const selection = window.getSelection()
     if (!selection?.rangeCount) return
-    selection.deleteFromDocument()
-    selection.getRangeAt(0).insertNode(document.createTextNode(paste))
+    const range = selection.getRangeAt(0)
+    range.setStart(input.value!.startContainer!, input.value!.startOffset!)
+    range.insertNode(emoji)
     selection.collapseToEnd()
+}
+
+const setFocus = () => {
+    input.value!.focus()
+    const selection = window.getSelection()!
+    if (!input.value!.startContainer) return
+    const range = selection.getRangeAt(0)
+    range.setStart(input.value!.startContainer!, input.value!.startOffset!)
 }
 
 // 根据publishType的值确定使用哪个接口
@@ -95,13 +69,13 @@ const publish = async () => {
         result = await publishComment({
             type: props.type,
             itemId: props.itemId,
-            commentContent: commentContent.value,
+            commentContent: input.value!.getContent(),
             commentImage: image.value
         })
     } else if (props.publishType === 'reply') {
         result = await publishReply({
             itemId: props.itemId,
-            replyContent: commentContent.value,
+            replyContent: input.value!.getContent(),
             replyImage: image.value,
             replyToUserId: props.replyToUserId
         })
@@ -109,15 +83,20 @@ const publish = async () => {
     return result
 }
 
-const handleClick = () => {
-    commentContent.value = richInput.value?.innerHTML!
-    if (commentContent.value.trim()) {
+const image = ref('')
+const getImage = (res: Response<UploadImageResponse>) => {
+    image.value = res.data.url
+}
+
+const submit = () => {
+    if (input.value!.getContent()!.trim()) {
         publish()
             .then((res) => {
+                console.log(1)
                 handleSuccessResponse(res?.data!, () => {
                     emit('publishSuccess', res?.data.data)
-                    isShowPlaceholder.value = true
-                    commentContent.value = ''
+                    input.value!.isShowPlaceholder = true
+                    input.value!.setContent('')
                     image.value = ''
                     ElMessage({
                         type: 'success',
@@ -126,7 +105,9 @@ const handleClick = () => {
                     })
                 })
             })
-            .catch((err) => {})
+            .catch((err) => {
+                console.log(err)
+            })
     } else {
         ElMessage({
             type: 'warning',
@@ -158,14 +139,6 @@ const handleClick = () => {
         &:focus {
             border: 1px solid var(--theme-color);
         }
-    }
-
-    .empty::before {
-        content: attr(placeholder);
-        position: absolute;
-        user-select: none;
-        color: #8a919f;
-        pointer-events: none;
     }
 
     .image-preview-box {

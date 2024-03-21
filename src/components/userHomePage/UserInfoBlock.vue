@@ -7,15 +7,22 @@
             <div class="top">
                 {{ username }}
             </div>
+            <div style="flex: 1"></div>
+            <div class="action-list">
+                <ElButton class="chat-button" v-if="!isLoginUser" @click="handleClick"
+                    >私信</ElButton
+                >
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { useUserInfoStore } from '@/stores'
-import { ref, onBeforeMount } from 'vue'
-import { getUserInfo } from '@/api'
+import { ref, onBeforeMount, computed } from 'vue'
+import { chatWithUser, getUserInfo } from '@/api'
 import { handleSuccessResponse } from '@/utils/handlePromise'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
     user_id: {
@@ -27,8 +34,12 @@ const props = defineProps({
 const username = ref('')
 const avatar = ref('')
 
+const isLoginUser = computed(() => {
+    return props.user_id === getUserId()
+})
+
 onBeforeMount(() => {
-    if (props.user_id === getUserId()) {
+    if (isLoginUser.value) {
         username.value = getUserName()
         avatar.value = getAvatar()
     } else {
@@ -49,6 +60,20 @@ onBeforeMount(() => {
 })
 
 const { getAvatar, getUserName, getUserId } = useUserInfoStore()
+
+const router = useRouter()
+const handleClick = () => {
+    chatWithUser({
+        params: {
+            senderUserId: getUserId(),
+            receiverUserId: props.user_id
+        }
+    }).then((res) => {
+        handleSuccessResponse(res.data, () => {
+            router.push('/privateChat')
+        })
+    })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -68,8 +93,20 @@ const { getAvatar, getUserName, getUserId } = useUserInfoStore()
     }
 
     .info-box {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         .top {
             font-size: 17px;
+        }
+
+        .action-list {
+            display: flex;
+            justify-content: flex-end;
+            .chat-button {
+                width: 100px;
+                height: 36px;
+            }
         }
     }
 }

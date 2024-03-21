@@ -12,6 +12,9 @@
                         size="small"
                     ></ElColorPicker>
                 </span>
+                <RouterLink to="/privateChat" class="chat">
+                    <font-awesome-icon :icon="['far', 'envelope']" />
+                </RouterLink>
             </div>
             <BaseSearchBar />
             <div class="nav-button-wrapper" v-show="!isLogin">
@@ -79,7 +82,7 @@ onMounted(() => {
     position: sticky;
     position: -webkit-sticky; /* Safari */
     top: 0;
-    z-index: 10000;
+    z-index: 1000;
 
     .nav-wrapper {
         height: 100%;
@@ -93,9 +96,10 @@ onMounted(() => {
             display: flex;
             align-items: center;
             position: relative;
+            padding: 0 20px;
             .skin {
                 font-size: 20px;
-                margin: 0 20px;
+                margin: 0 10px;
                 cursor: pointer;
                 position: relative;
                 color: var(--theme-color);
@@ -108,6 +112,17 @@ onMounted(() => {
                 left: 0;
                 top: 5px;
                 opacity: 0;
+            }
+
+            .chat {
+                font-size: 20px;
+                margin: 0 10px;
+                cursor: pointer;
+                position: relative;
+                color: var(--theme-color);
+                &:hover {
+                    color: var(--theme-color-hover);
+                }
             }
         }
         .nav-button-wrapper {

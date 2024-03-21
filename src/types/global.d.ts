@@ -82,3 +82,33 @@ export interface Comment {
     user_info: CommentUserInfo
     reply_infos: Array<Reply>
 }
+
+type MessageType = 'login' | 'heart_beat' | 'private' | 'group'
+
+export interface WebSocketMessage {
+    type: MessageType
+    from: string
+    to: string
+    content: string
+    creat_time?: number
+}
+
+export interface ChatEntry {
+    user_id: string
+    user_name: string
+    avatar: string
+    content: string
+    create_time: number
+}
+
+export interface ChatRecord {
+    sender_user_id: string
+    receiver_user_id: string
+    content: string
+    create_time: number
+}
+
+export interface ChatRecordResponse {
+    totalPage: number
+    messages: ChatRecord[]
+}
