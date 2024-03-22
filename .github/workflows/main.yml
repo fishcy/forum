@@ -25,8 +25,8 @@ jobs:                             # 需要执行的任务，可以有多个任�
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}  #这个是阿里云的私钥
         ARGS: "-avzr --delete"
-        SOURCE: "./dist"
+        SOURCE: "./html"
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}    #阿里云的 ip
         REMOTE_USER: ${{ secrets.REMOTE_USER }}    #阿里云用户
-        TARGET: "/nginx/html"       #被部署的服务器路径 
+        TARGET: "/nginx"       #被部署的服务器路径 
 
