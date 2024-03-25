@@ -121,3 +121,10 @@ export async function getChatRecords(
 ): Promise<AxiosResponse<Response<ChatRecordResponse>>> {
     return await apiInstance.get('/get-chat-record', config)
 }
+
+export async function deleteArticle(
+    data: any,
+    config: AxiosRequestConfig = {}
+): Promise<AxiosResponse<Response>> {
+    return await apiInstance.patch('/delete-article', data, config)
+}

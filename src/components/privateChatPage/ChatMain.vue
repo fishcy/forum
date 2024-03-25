@@ -170,6 +170,7 @@ watch(
         first = true
         page = 1
         totalPage = 1
+        messageList.value = []
     }
 )
 

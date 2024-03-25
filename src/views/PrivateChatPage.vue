@@ -14,7 +14,11 @@
                         class="item"
                     ></ChatUserCard
                 ></template>
-                <template v-else> </template>
+                <template v-else>
+                    <div>
+                        
+                    </div>
+                </template>
             </div>
         </div>
         <ChatMain
