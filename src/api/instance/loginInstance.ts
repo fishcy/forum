@@ -21,15 +21,14 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     (response) => {
         if (response.data.msg === '成功') {
-            const { setAuth, setAvatar, setUserName, setThemeColor, setUserId, getAuth } =
-                useUserInfoStore()
+            const { setAuth, setAvatar, setUserName, setThemeColor, setUserId } = useUserInfoStore()
             setAuth(response.headers.authorization)
             const { user_id, avatar, username, themeColor } = response.data.data
             setUserId(user_id)
             setAvatar(avatar)
             setUserName(username)
             setThemeColor(themeColor)
-            connect(getAuth())
+            connect()
         }
         return response
     },
