@@ -1,3 +1,5 @@
+import { useUserInfoStore } from '@/stores'
+import { connect } from '@/websocket/chat'
 import axios, { type AxiosInstance } from 'axios'
 
 const instance: AxiosInstance = axios.create({
@@ -16,6 +18,16 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     (response) => {
+        if (response.data.msg === '成功') {
+            const { setAuth, setAvatar, setUserName, setThemeColor, setUserId } = useUserInfoStore()
+            setAuth(response.headers.authorization)
+            const { user_id, avatar, username, themeColor } = response.data.data
+            setUserId(user_id)
+            setAvatar(avatar)
+            setUserName(username)
+            setThemeColor(themeColor)
+            connect()
+        }
         return response
     },
     (error) => {
