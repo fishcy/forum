@@ -3,6 +3,9 @@
         <div class="nav-wrapper">
             <!-- 设置主题颜色 -->
             <div class="nav-setting">
+                <RouterLink to="/" class="home">
+                    <font-awesome-icon :icon="['fas', 'house']" />
+                </RouterLink>
                 <span class="skin">
                     <font-awesome-icon :icon="['fas', 'shirt']" />
                     <ElColorPicker
@@ -97,7 +100,9 @@ onMounted(() => {
             align-items: center;
             position: relative;
             padding: 0 20px;
-            .skin {
+            .skin,
+            .chat,
+            .home {
                 font-size: 20px;
                 margin: 0 10px;
                 cursor: pointer;
@@ -112,17 +117,6 @@ onMounted(() => {
                 left: 0;
                 top: 5px;
                 opacity: 0;
-            }
-
-            .chat {
-                font-size: 20px;
-                margin: 0 10px;
-                cursor: pointer;
-                position: relative;
-                color: var(--theme-color);
-                &:hover {
-                    color: var(--theme-color-hover);
-                }
             }
         }
         .nav-button-wrapper {

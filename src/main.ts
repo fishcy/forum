@@ -33,7 +33,8 @@ import {
     faLink,
     faEllipsis,
     faPen,
-    faTrash
+    faTrash,
+    faHouse
 } from '@fortawesome/free-solid-svg-icons'
 import {
     faEye,
@@ -76,7 +77,8 @@ library.add(
     faFaceSmile,
     faEnvelope,
     faPen,
-    faTrash
+    faTrash,
+    faHouse
 )
 
 import InfiniteScrollUp from './directives/infiniteScroll'
