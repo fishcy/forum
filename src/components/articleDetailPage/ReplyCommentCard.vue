@@ -41,6 +41,10 @@
                     :type="2"
                 ></ThumbsUp>
                 <PublishComment @click="isShowCommentForm = !isShowCommentForm"></PublishComment>
+                <div style="flex: 1"></div>
+                <span class="ellipsis" v-if="user_info.user_id === getUserId()">
+                    <EllipsisPopover trigger="click"></EllipsisPopover>
+                </span>
             </div>
             <div class="reply-editor">
                 <CommentForm
@@ -60,9 +64,12 @@
 import { ref } from 'vue'
 import type { Reply } from '@/types/global.d.ts'
 import { timeDistanceFromNow } from '@/utils/date'
+import { useUserInfoStore } from '@/stores'
 const props = defineProps<Reply>()
 
 const emit = defineEmits(['publishReplySuccess'])
+
+const { getUserId } = useUserInfoStore()
 
 const userLink = `/user/${props.user_info.user_id}`
 const replyUserLink = `/user/${props.reply_user.user_id}`
@@ -146,6 +153,16 @@ const publishSuccess = (data: Reply) => {
                 margin-right: 10px;
                 display: flex;
                 align-items: center;
+            }
+
+            .ellipsis {
+                color: var(--font-3);
+                font-size: 14px;
+                cursor: pointer;
+                padding: 0 10px;
+                &:hover {
+                    color: var(--theme-color);
+                }
             }
         }
 

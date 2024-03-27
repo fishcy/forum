@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 import type { TooltipTriggerType } from 'element-plus'
-import { onMounted, ref } from 'vue'
 
 withDefaults(
     defineProps<{
@@ -39,11 +38,6 @@ const handleClick = (event: Event) => {
     event.preventDefault()
     emit('click', event)
 }
-
-const popperRef = ref()
-onMounted(() => {
-    console.log(popperRef.value)
-})
 </script>
 
 <style lang="scss" scoped></style>
