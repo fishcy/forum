@@ -135,3 +135,10 @@ export async function deleteComment(
 ): Promise<AxiosResponse<Response>> {
     return await apiInstance.patch('/delete-comment', data, config)
 }
+
+export async function deleteReply(
+    data: any,
+    config: AxiosRequestConfig = {}
+): Promise<AxiosResponse<Response>> {
+    return await apiInstance.patch('/delete-reply', data, config)
+}

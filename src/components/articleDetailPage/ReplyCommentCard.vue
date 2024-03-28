@@ -1,5 +1,5 @@
 <template>
-    <div class="reply-comment-card">
+    <div class="reply-comment-card" v-if="!isDelete">
         <div class="reply-avatar">
             <RouterLink :to="userLink" target="_blank">
                 <img
@@ -43,7 +43,14 @@
                 <PublishComment @click="isShowCommentForm = !isShowCommentForm"></PublishComment>
                 <div style="flex: 1"></div>
                 <span class="ellipsis" v-if="user_info.user_id === getUserId()">
-                    <EllipsisPopover trigger="click"></EllipsisPopover>
+                    <EllipsisPopover trigger="click">
+                        <ul class="more-list" @click="moreClick">
+                            <li class="item delete">
+                                <font-awesome-icon :icon="['fas', 'trash']" />
+                                删除
+                            </li>
+                        </ul>
+                    </EllipsisPopover>
                 </span>
             </div>
             <div class="reply-editor">
@@ -65,6 +72,8 @@ import { ref } from 'vue'
 import type { Reply } from '@/types/global.d.ts'
 import { timeDistanceFromNow } from '@/utils/date'
 import { useUserInfoStore } from '@/stores'
+import { handleSuccessResponse } from '@/utils/handlePromise'
+import { deleteReply } from '@/api'
 const props = defineProps<Reply>()
 
 const emit = defineEmits(['publishReplySuccess'])
@@ -79,6 +88,40 @@ const isShowCommentForm = ref(false)
 const publishSuccess = (data: Reply) => {
     isShowCommentForm.value = false
     emit('publishReplySuccess', data)
+}
+
+const isDelete = ref(false)
+const moreList: { [key: string]: () => any } = {
+    删除: () => {
+        deleteReply({
+            reply_id: props.reply_id
+        }).then((res) => {
+            handleSuccessResponse(
+                res.data,
+                () => {
+                    isDelete.value = true
+                    ElMessage({
+                        type: 'success',
+                        message: res.data.msg,
+                        offset: 100
+                    })
+                },
+                '删除成功'
+            )
+        })
+    }
+}
+const moreClick = (event: Event) => {
+    let target = event.target as HTMLElement | null
+    const currentTarget = event.currentTarget as HTMLUListElement
+    while (target !== currentTarget) {
+        const key = target?.innerText || ''
+        if (moreList[key]) {
+            console.log(1)
+            moreList[key]()
+            break
+        }
+    }
 }
 </script>
 
@@ -162,6 +205,27 @@ const publishSuccess = (data: Reply) => {
                 padding: 0 10px;
                 &:hover {
                     color: var(--theme-color);
+                }
+
+                .more-list {
+                    .item {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 7px 0;
+                        border-radius: 4px;
+                        svg {
+                            margin-right: 16px;
+                        }
+
+                        &:hover {
+                            background-color: #f2f3f5;
+                        }
+                    }
+
+                    .delete {
+                        color: #f64242;
+                    }
                 }
             }
         }
